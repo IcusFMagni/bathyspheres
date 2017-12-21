@@ -1,10 +1,13 @@
 myApp.controller('UserController',['UserService', 'ProjectService', function(UserService, ProjectService) {
   console.log('UserController created');
-  var vm = this;
-  vm.newProject = ProjectService.newProject;
+  var self = this;
+  self.newProject = ProjectService.newProject;
+  self.projects = ProjectService.projects;
 
-  vm.createProject = 
-  vm.userService = UserService;
-  vm.userObject = UserService.userObject;
+  self.createProject = ProjectService.createProject
+  self.userService = UserService;
+  self.userObject = UserService.userObject;
+
+  ProjectService.getProject()
 
 }]);

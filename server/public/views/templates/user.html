@@ -6,7 +6,10 @@
         <input type="text" ng-model="vm.newProject.name">
         <button ng-click="vm.createProject(vm.newProject)">New Project</button>
     </form>
-    <button class="btn btn-default" ng-click="uc.userService.logout()">Log Out</button>
+    <button class="btn btn-default" ng-click="vm.userService.logout()">Log Out</button>
+    <div layout=column>
+        <div flex class="first-box box">
+            <h2>My Projects</h2>
     <table>
         <thead>
             <tr>
@@ -20,7 +23,7 @@
                     Collaborators
                 </th>
                 <th>
-                    Add Contributor
+                    Add Collaborator
                 </th>
                 <th>
                     Open
@@ -31,7 +34,12 @@
             </tr>
         </thead>
         <tbody>
-
+            <tr ng-repeat="project in vm.projects.list">
+                <td>{{project.project_name}}</td>
+                <td>{{project.username}}</td>
+                <td>{{}}</td>
+            </tr>
         </tbody>
     </table>
+</div></div>
 </div>

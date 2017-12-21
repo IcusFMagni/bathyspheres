@@ -17,7 +17,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
     }
 
 
-    self.getProjects = function () {
+    self.getProject = function () {
         $http({
             method: 'GET',
             url: '/projects'

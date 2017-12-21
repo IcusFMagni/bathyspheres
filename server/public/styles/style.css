@@ -1,8 +1,10 @@
+/* color palate is Dark Blue #233D4D Orange #FE7F2D Aqua #45C1A6 Yellow #FCCA46 Green #A1C181  */
 body, html {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
   font-size: 14px;
+  background-color: #233D4D
 }
 
 .instructions .container h1 {
@@ -11,8 +13,8 @@ body, html {
 }
 
 .instructions {
-  background-color: #333333;
-  color: #DDDDDD;
+  background-color: #FCCA46;
+  color: #233D4D;
   padding: 15px;
 }
 
@@ -77,4 +79,21 @@ li a {
 li a:hover {
   text-decoration: underline;
   color: #eee;
+}
+
+.box {
+  background-color: #FE7F2D
+}
+
+td {
+  background-color: #FE7F2D;
+}
+
+th {
+  background-color: #FE7F2D
+}
+
+table {
+  background-color: #233D4D;
+  color: #233D4D;
 }
