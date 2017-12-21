@@ -26,6 +26,7 @@ router.get('/', function (req, res) {
                         console.log('Error making query', errorMakingQuery);
                         res.sendStatus(500);
                     } else {
+                       
                         res.send(result.rows);
                     }
                 });
@@ -34,14 +35,14 @@ router.get('/', function (req, res) {
 });
 
 router.post('/', function (req, res) {
-    var newProject = req.query;
+    
 
     pool.connect(function (errorConnectingToDatabase, client, done) {
         if (errorConnectingToDatabase) {
             console.log('Error connecting to database', errorConnectingToDatabase);
             res.sendStatus(500);
         } else {
-            client.query("INSERT INTO todo (task, due, steps, completed) VALUES ($1, $2, $3, 'N')", [task, due, steps], function (errorMakingQuery, result) {
+            client.query(`INSERT INTO projects ("project_name", "creator") VALUES ($1, $2)`, [req.query.name, req.user.id], function (errorMakingQuery, result) {
                 done();
                 if (errorMakingQuery) {
                     console.log('Error making query', errorMakingQuery);
@@ -54,6 +55,8 @@ router.post('/', function (req, res) {
         }
     })
 })
+
+
 
 
 module.exports = router;

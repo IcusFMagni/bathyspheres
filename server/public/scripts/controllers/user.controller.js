@@ -8,6 +8,6 @@ myApp.controller('UserController',['UserService', 'ProjectService', function(Use
   self.userService = UserService;
   self.userObject = UserService.userObject;
 
-  ProjectService.getProject()
+  ProjectService.getProjects()
 
 }]);

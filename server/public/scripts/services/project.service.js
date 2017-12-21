@@ -9,7 +9,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
             method: 'POST',
             url: '/projects',
             params: self.newProject
-        }).then(function (repsonse) {
+        }).then(function (response) {
             console.log('response', response);
             self.getProjects()
         })
@@ -17,7 +17,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
     }
 
 
-    self.getProject = function () {
+    self.getProjects = function () {
         $http({
             method: 'GET',
             url: '/projects'
