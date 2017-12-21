@@ -1,12 +1,13 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
-
+    <div flex class="box">
     <h1 id="welcome" class="lead">Welcome, {{vm.userObject.userName}}!</h1>
     <form>
         <input type="text" ng-model="vm.newProject.name">
         <button ng-click="vm.createProject(vm.newProject)">New Project</button>
     </form>
     <button class="btn btn-default" ng-click="vm.userService.logout()">Log Out</button>
+</div>
     <div layout=column>
         <div flex class="first-box box">
             <h2>My Projects</h2>
@@ -37,7 +38,9 @@
             <tr ng-repeat="project in vm.projects.list">
                 <td>{{project.project_name}}</td>
                 <td>{{project.username}}</td>
-                <td>{{}}</td>
+                <td>{{vm.listCollaborators}}</td>
+                <td></td>
+                <td></td>
             </tr>
         </tbody>
     </table>
