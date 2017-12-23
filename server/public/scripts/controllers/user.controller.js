@@ -12,16 +12,13 @@ myApp.controller('UserController',['UserService', 'ProjectService', function(Use
 
   self.listCollaborators = function (list) {
     let stringToPrint = ''
-    if (list.array_agg === null) {
-      stringToPrint = 'None'
-    } else {
     for (let i = 0; i < list.length; i++) {
-      console.log(list[i])
-
-      stringToPrint += list[i] + ' '
-      
-    }}
-    console.log(stringToPrint)
+      stringToPrint += list[i] + ', '      
+    }
+    stringToPrint = stringToPrint.slice(0, -2)
+    if (stringToPrint === 'null'){
+      stringToPrint = 'None'
+    }
     return stringToPrint
   }
 
