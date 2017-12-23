@@ -35,8 +35,6 @@ router.get('/', function (req, res) {
 });
 
 router.post('/', function (req, res) {
-    
-
     pool.connect(function (errorConnectingToDatabase, client, done) {
         if (errorConnectingToDatabase) {
             console.log('Error connecting to database', errorConnectingToDatabase);
