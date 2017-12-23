@@ -4,7 +4,8 @@ body, html {
   padding: 0;
   font-family: sans-serif;
   font-size: 14px;
-  background-color: pc
+  background-color: #FCCA46;
+}
 
 .instructions .container h1 {
   font-size: 32px;
@@ -12,7 +13,7 @@ body, html {
 }
 
 .instructions {
-  background-color: #FCCA46;
+  background-color: #102C3D;
   color: #635C51;
   padding: 15px;
 }
@@ -50,7 +51,7 @@ body, html {
 }
 
 .navbar {
-  background-color: #FCCA46;
+  background-color: #102C3D;
   width: 100%;
   border-radius: 0px;
 }
@@ -81,7 +82,7 @@ li a:hover {
 }
 
 h2 {
-  background-color: #FE7F2D;
+  background-color: #635C51;
   color: #102C3D;
 }
 
@@ -90,11 +91,11 @@ td {
 }
 
 th {
-  background-color: #9D8DF1
+  background-color: #635C51
 }
 
 table {
-  background-color: #FCCA46;
+  background-color: #635C51;
   color: #102C3D;
   width: 100%
 }

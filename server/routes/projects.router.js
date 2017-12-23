@@ -11,7 +11,7 @@ router.get('/', function (req, res) {
             res.sendStatus(500);
         } else {
 
-            client.query(`SELECT projects.id, projects.project_name, array_agg(collaborators.username) 
+            client.query(`SELECT projects.id, projects.username, projects.project_name, array_agg(collaborators.username) 
             FROM projects JOIN users 
             ON users.id = projects.creator 
             FULL OUTER JOIN projects_users_junction

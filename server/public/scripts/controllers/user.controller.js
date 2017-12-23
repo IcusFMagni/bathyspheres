@@ -10,4 +10,20 @@ myApp.controller('UserController',['UserService', 'ProjectService', function(Use
 
   ProjectService.getProjects()
 
+  self.listCollaborators = function (list) {
+    let stringToPrint = ''
+    if (list.array_agg === null) {
+      stringToPrint = 'None'
+    } else {
+    for (let i = 0; i < list.length; i++) {
+      console.log(list[i])
+
+      stringToPrint += list[i] + ' '
+      
+    }}
+    console.log(stringToPrint)
+    return stringToPrint
+  }
+
+
 }]);
