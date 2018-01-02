@@ -1,7 +1,7 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
     <div flex class="box">
-    <h1 id="welcome" class="lead">Welcome, {{vm.userObject.userName}}!</h1>
+    <h1 id="welcome" class="lead">Welcome, {{vm.userObject.userName}}!  You are currently editing {{vm.currentProject.name}}</h1>
     <form>
         <input type="text" ng-model="vm.newProject.name">
         <button ng-click="vm.createProject(vm.newProject)">New Project</button>
@@ -36,6 +36,7 @@
                 <td>{{project.project_name}}</td>
                 <td>{{vm.listCollaborators(project.array_agg)}}</td>
                 <td>{{project.array_agg}}</td>
+                <td><button ng-click="vm.currentProject.name = project.project_name">OPEN</button></td>
                 <td></td>
             </tr>
         </tbody>

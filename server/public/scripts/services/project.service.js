@@ -1,7 +1,8 @@
 myApp.service('ProjectService', ['$http', function ($http) {
     var self = this;
-    self.newProject = {}
-    self.projects = { list: [] }
+    self.newProject = {};
+    self.projects = { list: [] };
+    self.currentProject = {name: 'nothing'};
 
 
     self.createProject = function () {

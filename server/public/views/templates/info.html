@@ -1,6 +1,24 @@
-<div ng-include="'views/partials/nav.html'"></div>
-<div class="container">
-  <p>
-    In Info
-  </p>
+<div class="section">
+  <div ng-include="'views/partials/nav.html'"></div>
+  <div class="container">
+    <div layout="row" layout-xs="column">
+      <div flex class="first-box box">
+        I'm above on mobile, and to the left on larger devices
+      </div>
+      <div flex class="second-box box">
+        I'm below on mobile, and to the right on larger devices
+      </div>
+    </div>
+    <br>
+    <div layout="row" layout-align="center center">
+      <div flex="30" flex-gt-sm="20" class="first-box box">
+        Here flex is 30
+      </div>
+
+    </div>
+    <br>
+    <div layout="row" layout-align="center">
+      <md-button class="md-primary md-raised" ng-click="mc.showAlert($event)">Alert!</md-button>
+    </div>
+  </div>
 </div>

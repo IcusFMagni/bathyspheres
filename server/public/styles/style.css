@@ -5,16 +5,18 @@ body, html {
   font-family: sans-serif;
   font-size: 14px;
   background-color: #FCCA46;
+  color: #BFB48F;
 }
 
 .instructions .container h1 {
   font-size: 32px;
   font-weight: 600;
+  color: #FE7F2D;
 }
 
 .instructions {
   background-color: #102C3D;
-  color: #635C51;
+  color: #BFB48F;
   padding: 15px;
 }
 
@@ -82,7 +84,7 @@ li a:hover {
 }
 
 h2 {
-  background-color: #635C51;
+  background-color: #BFB48F;
   color: #102C3D;
 }
 
@@ -91,11 +93,11 @@ td {
 }
 
 th {
-  background-color: #635C51
+  background-color: #BFB48F;
 }
 
 table {
-  background-color: #635C51;
+  background-color: #BFB48F;
   color: #102C3D;
   width: 100%
 }
@@ -107,5 +109,9 @@ input {
 .box {
   width: 90%;
   margin:20px;
+}
+
+h1 {
+  color: #FE7F2D;
 }
 

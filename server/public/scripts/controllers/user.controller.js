@@ -4,9 +4,11 @@ myApp.controller('UserController',['UserService', 'ProjectService', function(Use
   self.newProject = ProjectService.newProject;
   self.projects = ProjectService.projects;
 
-  self.createProject = ProjectService.createProject
+  self.createProject = ProjectService.createProject;
+  self.currentProject = ProjectService.currentProject;
   self.userService = UserService;
   self.userObject = UserService.userObject;
+  
 
   ProjectService.getProjects()
 
