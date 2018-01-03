@@ -6,8 +6,17 @@ myApp.controller('UserController',['UserService', 'ProjectService', function(Use
 
   self.createProject = ProjectService.createProject;
   self.currentProject = ProjectService.currentProject;
+  self.project = ProjectService.project
   self.userService = UserService;
   self.userObject = UserService.userObject;
+
+  self.selectProject = function (name) {
+    self.currentProject.name = name
+    ProjectService.getTrack()
+
+  }
+
+  
   
 
   ProjectService.getProjects()

@@ -3,6 +3,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
     self.newProject = {};
     self.projects = { list: [] };
     self.currentProject = {name: 'nothing'};
+    self.project = { list: []}
 
 
     self.createProject = function () {
@@ -27,4 +28,15 @@ myApp.service('ProjectService', ['$http', function ($http) {
 
         });
     };
+
+    self.getTrack = function () {
+        $http({
+            method: 'GET',
+            url: '/projects/tracks'
+        }).then(function ( response) {
+            self.project.list = response.data;
+        })
+
+    }
+
 }])

@@ -36,10 +36,11 @@
                 <td>{{project.project_name}}</td>
                 <td>{{vm.listCollaborators(project.array_agg)}}</td>
                 <td>{{project.array_agg}}</td>
-                <td><button ng-click="vm.currentProject.name = project.project_name">OPEN</button></td>
+                <td><button ng-click="vm.selectProject (project.project_name)">OPEN</button></td>
                 <td></td>
             </tr>
         </tbody>
     </table>
 </div></div>
+<h4>{{vm.project.list}}</h4>
 </div>

@@ -54,7 +54,29 @@ router.post('/', function (req, res) {
     })
 })
 
+router.get('/tracks', function(req,res) {
+    pool.connect(function (errorConnectingToDatabase, client, done) {
+        if (errorConnectingToDatabase) {
+            console.log('Error connecting to database', errorConnectingToDatabase);
+            res.sendStatus(500);
+        } else {
 
+            client.query(`SELECT * FROM component JOIN projects ON component.project_id=projects.id 
+            WHERE projects.project_name = 'Joseph';`,
+                // [req.params], 
+                function (errorMakingQuery, result) {
+                    done();
+                    if (errorMakingQuery) {
+                        console.log('Error making query', errorMakingQuery);
+                        res.sendStatus(500);
+                    } else {
+                       
+                        res.send(result.rows); 
+                    }
+                });
+        }
+    });
+})
 
 
 module.exports = router;
