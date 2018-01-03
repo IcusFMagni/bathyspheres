@@ -20,16 +20,27 @@ myApp.controller('InfoController',['UserService', 'ProjectService', function(Use
   }
 
   self.scoreReader = function (array) {
+    var synthPlayer = []
     for (let i = 0; i < array.length; i++) {
       if(array[i] > 0) {
-        self.synthPlayer(i)
-      }      
+        synthPlayer.push (audioListener.createOscillator());
+        let frequency = self.pitchCalculator(i);
+
+        synthPlayer[i].connect(audioListener.destination)
+        synthPlayer[i].frequency.setValueAtTime(frequency, audioListener.currentTime)
+    
+        synthPlayer[i].start(audioListener.currentTime)
+        synthPlayer[i].stop(audioListener.currentTime + self.eigthNoteLength)
+        
+      }else {
+        synthPlayer.push (undefined)
+      }
     }
   }
 
   //creates a sound, sets pitch, and length 
   self.synthPlayer = function (note) {
-    let osc = audioListener.createOscillator();
+    var osc = audioListener.createOscillator();
     var frequency = self.pitchCalculator(note)
 
     osc.connect(audioListener.destination)
