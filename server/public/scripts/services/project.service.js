@@ -42,7 +42,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
             console.log(self.project)
 
             for (let j = 0; j < self.project.list.length; j++) {
-                self.project.arrayScore[j] = {componentName: self.project.list[j].component_name, score:[]}
+                self.project.arrayScore[j] = {id: j, componentName: self.project.list[j].component_name, score:[]}
 
                 var array = []
                 for (let i = 0; i < self.project.list[j].score.length / 2; i++) {
