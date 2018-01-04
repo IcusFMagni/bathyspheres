@@ -111,27 +111,34 @@ input {
 }
 
 .box {
-  height: 200px;
+
   color: white;
   font-size: 2em;
 }
 
 .first-box {
-  background-color: turquoise;
+  background-color: #FE7F2D;
   width: 200px;
   height: 4000px;
 }
 
 .second-box {
-  background-color: tomato;
+  background-color: #FCCA46;
   width: 150%;
 }
 
-.third-box {
-  background-color: plum;
-}
 
 h1 {
-  color: #FE7F2D;
+  color: #102C3D;
 }
 
+.note {
+  height: 5px;
+  width: 5px;
+}
+
+button {
+  background-color: #FE7F2D;
+  color: #102C3D;
+  width: 100%;
+}

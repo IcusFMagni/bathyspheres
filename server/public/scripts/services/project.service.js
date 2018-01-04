@@ -39,7 +39,11 @@ myApp.service('ProjectService', ['$http', function ($http) {
             var array = []
             for (let i = 0; i < self.project.list[0].score.length/2; i++) {
                 let pushValue = self.project.arrayScore[0].score.slice(2*i,2*i+2)
-                array.push({note: pushValue, position: i})
+                var on = 0
+                if (pushValue > 0){
+                    on = 1
+                }
+                array.push({note: pushValue, position: i, on: on})
             }
             for (let i = 0; i < array.length/32; i++) {
                 self.project.arrayScore[i] = []
