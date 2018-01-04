@@ -5,6 +5,8 @@ myApp.controller('InfoController',['UserService', 'ProjectService', function(Use
   self.currentProject = ProjectService.currentProject;
   self.project = ProjectService.project;
 
+  self.editNote = ProjectService.editNote
+
   function note2freq(note) {
     return Math.pow(2, (note - 69) / 12) * 440;
   }

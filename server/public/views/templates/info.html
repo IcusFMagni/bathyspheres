@@ -13,10 +13,10 @@
       <div layout="column">
         <div flex class="second-box box">
           <h2>BUISINESS</h2>
-
+          <p></p>
           <table>
             <tbody>
-              <tr><td><button ng-click="editNote()">x</button></td></tr>
+              <tr ng-repeat="note in vm.project.arrayScore"><td ng-repeat="beat in note"><button>{{beat.position}}</button></td></tr>
             </tbody>
           </table>
         </div>
