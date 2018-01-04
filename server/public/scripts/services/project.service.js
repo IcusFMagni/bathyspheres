@@ -32,11 +32,9 @@ myApp.service('ProjectService', ['$http', function ($http) {
     self.getTrack = function () {
         $http({
             method: 'GET',
-            url: '/projects/tracks'
+            url: '/projects/tracks/'+self.currentProject.name
         }).then(function ( response) {
             self.project.list = response.data;
         })
-
     }
-
 }])

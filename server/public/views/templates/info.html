@@ -1,15 +1,34 @@
+<div ng-include="'views/partials/nav.html'">
+</div>
 
-  <div ng-include="'views/partials/nav.html'"></div>
-  <button ng-click="vm.scoreReader([[0,0,0,0,0,0,0,0,0,0,0,10,0,0],[0,0,0,0,0,10,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,10]])">Boop</button>
-  <button ng-click="vm.scorePlayer([0,0,0,0,0,0,0,0,0,0,0,10,0,0])">Beep</button>
-  <div class="section">
-  <div class="container">
-    <div layout="row" layout-xs="column">
-      <div flex class="first-box box">
-        I'm above on mobile, and to the left on larger devices
+
+<div class="section">
+  <div>
+
+    <div layout="row">
+      <div class="first-box box">
+        <p>Bass</p>>
+        <button ng-click="">Edit</button>
       </div>
-      <div flex class="second-box box">
-        I'm below on mobile, and to the right on larger devices
+      <div layout="column">
+        <div flex class="second-box box">
+          <h2>BUISINESS</h2>
+
+          <table>
+            <tbody>
+              <tr><td><button ng-click="editNote()">x</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div flex class="second-box box">
+          I'm below on mobile, and to the right on larger devices
+        </div>
+        <div flex class="second-box box">
+          I'm below on mobile, and to the right on larger devices
+        </div>
+        <div flex class="second-box box">
+          I'm below on mobile, and to the right on larger devices
+        </div>
       </div>
     </div>
     <br>
@@ -23,5 +42,7 @@
     <div layout="row" layout-align="center">
       <md-button class="md-primary md-raised" ng-click="mc.showAlert($event)">Alert!</md-button>
     </div>
+    <i class="material-icons">local_pizza</i>
+
   </div>
 </div>

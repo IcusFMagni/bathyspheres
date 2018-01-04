@@ -106,9 +106,29 @@ input {
   background-color: #FCCA46;
 }
 
+.section {
+  width: 100%;
+}
+
 .box {
-  width: 90%;
-  margin:20px;
+  height: 200px;
+  color: white;
+  font-size: 2em;
+}
+
+.first-box {
+  background-color: turquoise;
+  width: 200px;
+  height: 4000px;
+}
+
+.second-box {
+  background-color: tomato;
+  width: 150%;
+}
+
+.third-box {
+  background-color: plum;
 }
 
 h1 {

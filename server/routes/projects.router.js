@@ -54,7 +54,9 @@ router.post('/', function (req, res) {
     })
 })
 
-router.get('/tracks', function(req,res) {
+router.get('/tracks/:name', function(req,res) {
+    var name = req.params.name
+
     pool.connect(function (errorConnectingToDatabase, client, done) {
         if (errorConnectingToDatabase) {
             console.log('Error connecting to database', errorConnectingToDatabase);
@@ -62,8 +64,8 @@ router.get('/tracks', function(req,res) {
         } else {
 
             client.query(`SELECT * FROM component JOIN projects ON component.project_id=projects.id 
-            WHERE projects.project_name = 'Joseph';`,
-                // [req.params], 
+            WHERE projects.project_name = $1;`,  
+                [name], 
                 function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
