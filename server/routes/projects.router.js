@@ -80,5 +80,17 @@ router.get('/tracks/:name', function(req,res) {
     });
 })
 
+router.put('/tracks', function (req,res){
+    var note = req.params.newString
+
+    pool.connect(function(err, client, done) {
+        if(err) {
+            console.log('Error connecting to database', err);
+            res.sendStatus(500);
+        } else {
+            client.query('U')
+        }
+    })
+})
 
 module.exports = router;
