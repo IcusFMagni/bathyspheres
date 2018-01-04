@@ -4,6 +4,7 @@ myApp.controller('InfoController',['UserService', 'ProjectService', function(Use
   self.userService = UserService;
   self.currentProject = ProjectService.currentProject;
   self.project = ProjectService.project;
+  console.log(self.project.arrayScore[0])
 
   self.editNote = ProjectService.editNote
 
