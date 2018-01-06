@@ -35,14 +35,11 @@ myApp.service('ProjectService', ['$http', function ($http) {
             url: '/projects/tracks/' + self.currentProject.name
         }).then(function (response) {
             self.project.list = angular.copy(response.data);
-            console.log(response.data)
 
             self.project.arrayScore = response.data;
 
-            console.log(self.project)
-
             for (let j = 0; j < self.project.list.length; j++) {
-                self.project.arrayScore[j] = {id: j, componentName: self.project.list[j].component_name, score:[]}
+                self.project.arrayScore[j] = { componentName: self.project.list[j].component_name, score: [] }
 
                 var array = []
                 for (let i = 0; i < self.project.list[j].score.length / 2; i++) {
@@ -51,7 +48,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
                     if (pushValue > 0) {
                         on = 1
                     }
-                    array.push({ note: pushValue, position: i, on: on })
+                    array.push({ id: j, componentName: self.project.list[j].component_name, note: pushValue, position: i, on: on })
                 }
                 for (let i = 0; i < array.length / 32; i++) {
                     self.project.arrayScore[j].score[i] = []
@@ -65,19 +62,22 @@ myApp.service('ProjectService', ['$http', function ($http) {
 
     self.editNote = function (beat) {
         function replaceNote(string, index, replacement) {
-            return string.substr(0, index) + replacement + string.substr(index + replacement.length);
+            let thing = string.substr(0, index) + replacement + string.substr(index + replacement.length);
+            return thing
         }
         let noteValue = '00'
         if (beat.on == 0) {
             noteValue = '01';
         }
-        newString = editNote(self.project.list, 2 * beat.position, noteValue)
+        let newString = {}
+        newString.string = replaceNote(self.project.list[beat.id].score, 2 * beat.position, noteValue)
+        newString.componentName = beat.componentName
+        newString.projectName = self.currentProject.name
         $http({
             method: 'PUT',
             url: '/projects/tracks',
             params: newString,
         }).then(function (response) {
-            console.log(resposne)
             self.getTrack()
         })
     }

@@ -1,4 +1,4 @@
-myApp.controller('InfoController',['UserService', 'ProjectService', function(UserService, ProjectService) {
+myApp.controller('InfoController', ['UserService', 'ProjectService', function (UserService, ProjectService) {
   console.log('InfoController created');
   var self = this;
   self.userService = UserService;
@@ -12,17 +12,17 @@ myApp.controller('InfoController',['UserService', 'ProjectService', function(Use
     return Math.pow(2, (note - 69) / 12) * 440;
   }
   function S(ac, clap, track) {
-     this.ac = ac;
-     this.clap = clap;
-     this.track = track;
-     this.rev = ac.createConvolver();
-     this.rev.buffer = this.ReverbBuffer();
-     this.sink = ac.createGain();
-     this.sink.connect(this.rev);
-     this.rev.connect(ac.destination);
-     this.sink.connect(ac.destination);
+    this.ac = ac;
+    this.clap = clap;
+    this.track = track;
+    this.rev = ac.createConvolver();
+    this.rev.buffer = this.ReverbBuffer();
+    this.sink = ac.createGain();
+    this.sink.connect(this.rev);
+    this.rev.connect(ac.destination);
+    this.sink.connect(ac.destination);
   }
-  S.prototype.NoiseBuffer = function() {
+  S.prototype.NoiseBuffer = function () {
     if (!S._NoiseBuffer) {
       S._NoiseBuffer = this.ac.createBuffer(1, this.ac.sampleRate / 10, this.ac.sampleRate);
       var cd = S._NoiseBuffer.getChannelData(0);
@@ -32,19 +32,19 @@ myApp.controller('InfoController',['UserService', 'ProjectService', function(Use
     }
     return S._NoiseBuffer;
   }
-  S.prototype.ReverbBuffer = function() {
+  S.prototype.ReverbBuffer = function () {
     var len = 0.5 * this.ac.sampleRate,
-        decay = 0.5;
+      decay = 0.5;
     var buf = this.ac.createBuffer(2, len, this.ac.sampleRate);
     for (var c = 0; c < 2; c++) {
       var channelData = buf.getChannelData(c);
       for (var i = 0; i < channelData.length; i++) {
-         channelData[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, decay);
+        channelData[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, decay);
       }
     }
     return buf;
   }
-  S.prototype.Kick = function(t) {
+  S.prototype.Kick = function (t) {
     var o = this.ac.createOscillator();
     var g = this.ac.createGain();
     o.connect(g);
@@ -66,7 +66,7 @@ myApp.controller('InfoController',['UserService', 'ProjectService', function(Use
     osc2.start(t);
     osc2.stop(t + 1);
   }
-  S.prototype.Hats = function(t) {
+  S.prototype.Hats = function (t) {
     var s = this.ac.createBufferSource();
     s.buffer = this.NoiseBuffer();
     var g = this.ac.createGain();
@@ -80,7 +80,7 @@ myApp.controller('InfoController',['UserService', 'ProjectService', function(Use
     hpf.connect(this.sink);
     s.start(t);
   }
-  S.prototype.Clap = function(t) {
+  S.prototype.Clap = function (t) {
     var s = this.ac.createBufferSource();
     var g = this.ac.createGain();
     s.buffer = this.clap;
@@ -89,7 +89,7 @@ myApp.controller('InfoController',['UserService', 'ProjectService', function(Use
     g.gain.value = 0.5;
     s.start(t);
   }
-  S.prototype.Bass = function(t, note) {
+  S.prototype.Bass = function (t, note) {
     var o = this.ac.createOscillator();
     var o2 = this.ac.createOscillator();
     var g = this.ac.createGain();
@@ -111,16 +111,16 @@ myApp.controller('InfoController',['UserService', 'ProjectService', function(Use
     o.start(t);
     o.stop(t + 1);
   }
-  S.prototype.clock = function() {
+  S.prototype.clock = function () {
     var beatLen = 60 / this.track.tempo;
-    return (this.ac.currentTime  - this.startTime) / beatLen;
+    return (this.ac.currentTime - this.startTime) / beatLen;
   }
-  S.prototype.start = function() {
+  S.prototype.start = function () {
     this.startTime = this.ac.currentTime;
     this.nextScheduling = 0;
     this.scheduler();
   }
-  S.prototype.scheduler = function() {
+  S.prototype.scheduler = function () {
     var beatLen = 60 / this.track.tempo;
     var current = this.clock();
     var lookahead = 0.5;
@@ -145,22 +145,22 @@ myApp.controller('InfoController',['UserService', 'ProjectService', function(Use
   var track = {
     tempo: 135,
     tracks: {
-      Kick: [ 1, 0, 0, 0, 1, 0, 0, 0,
-              1, 0, 0, 0, 1, 0, 0, 0,
-              1, 0, 0, 0, 1, 0, 0, 0,
-              1, 0, 0, 0, 1, 0, 0, 0],
-      Hats: [ 0, 0, 1, 0, 0, 0, 1, 0,
-              0, 0, 1, 0, 0, 0, 1, 1,
-              0, 0, 1, 0, 0, 0, 1, 0,
-              0, 0, 1, 0, 0, 0, 1, 0 ],
-      Clap: [ 0, 0, 0, 0, 1, 0, 0, 0,
-              0, 0, 0, 0, 1, 0, 0, 0,
-              0, 0, 0, 0, 1, 0, 0, 0,
-              0, 0, 0, 0, 1, 0, 0, 0],
-      Bass: [36, 0,38,36,36,38,41, 0,
-             36,60,36, 0,39, 0,48, 0,
-             36, 0,24,60,40,40,24,24,
-             36,60,36, 0,39, 0,48, 0 ]
+      Kick: [1, 0, 0, 0, 1, 0, 0, 0,
+        1, 0, 0, 0, 1, 0, 0, 0,
+        1, 0, 0, 0, 1, 0, 0, 0,
+        1, 0, 0, 0, 1, 0, 0, 0],
+      Hats: [0, 0, 1, 0, 0, 0, 1, 0,
+        0, 0, 1, 0, 0, 0, 1, 1,
+        0, 0, 1, 0, 0, 0, 1, 0,
+        0, 0, 1, 0, 0, 0, 1, 0],
+      Clap: [0, 0, 0, 0, 1, 0, 0, 0,
+        0, 0, 0, 0, 1, 0, 0, 0,
+        0, 0, 0, 0, 1, 0, 0, 0,
+        0, 0, 0, 0, 1, 0, 0, 0],
+      Bass: [36, 0, 38, 36, 36, 38, 41, 0,
+        36, 60, 36, 0, 39, 0, 48, 0,
+        36, 0, 24, 60, 40, 40, 24, 24,
+        36, 60, 36, 0, 39, 0, 48, 0]
     }
   };
   fetch('clap.ogg').then((response) => {
