@@ -4,6 +4,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
     self.projects = { list: [] };
     self.currentProject = { name: 'nothing' };
     self.project = { list: [], arrayScore: [] }
+    self.editOnlyOne = false;
 
 
     self.createProject = function () {
@@ -61,6 +62,8 @@ myApp.service('ProjectService', ['$http', function ($http) {
     }
 
     self.editNote = function (beat) {
+        if (self.editOnlyOne == false) {
+        self.editOnlyOne = true
         function replaceNote(string, index, replacement) {
             let thing = string.substr(0, index) + replacement + string.substr(index + replacement.length);
             return thing
@@ -79,6 +82,11 @@ myApp.service('ProjectService', ['$http', function ($http) {
             params: newString,
         }).then(function (response) {
             self.getTrack()
+            self.editOnlyOne = false
         })
+        
+    } else {
+        console.log('wait')
     }
+}
 }])

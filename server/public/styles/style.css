@@ -142,3 +142,7 @@ button {
   color: #102C3D;
   width: 100%;
 }
+
+#projectTable {
+  padding: 20px;
+}
