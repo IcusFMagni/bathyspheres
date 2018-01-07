@@ -89,6 +89,7 @@ router.put('/tracks', function (req, res) {
             client.query(`UPDATE component as t1 SET score = $1
             FROM  projects as t2 WHERE t1.project_id=t2.id 
             AND t2.project_name = $2 AND t1.component_name = $3;`, [req.query.string, req.query.projectName, req.query.componentName], function (err, result) {
+                    done()
                     if (err) {
                         res.sendStatus(500)
                     } else {
