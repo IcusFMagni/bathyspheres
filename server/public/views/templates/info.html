@@ -4,19 +4,25 @@
 
 <div class="section">
   <div>
-
+    <div layout="column"> 
+      <div>
+        <button ng-click="vm.playTrack()">PLAY</button>
+        <button ng-class="vm.stopTrack()">STOP</button>
+      </div>
     <div layout="row">
-      <div class="first-box box">
-        <p>Bass</p>>
-        <button ng-click="">Edit</button>
+      <div layout="column">
+        <div ng-repeat="component in vm.project.arrayScore" class="first-box box">
+          <p>{{component.componentName}}</p>
+          <button ng-click="vm.createReadableScore(vm.project.arrayScore[0].score)">Edit</button>
+        </div>
       </div>
       <div layout="column">
-        <div flex class="second-box box">
-          <h2>BUISINESS</h2>
+        <div ng-repeat="component in vm.project.arrayScore" flex class="second-box box">
+          <h2>{{component.componentName}}</h2>
           <p></p>
           <table>
             <tbody>
-              <tr ng-repeat="note in vm.project.arrayScore[0].score">
+              <tr ng-repeat="note in component.score">
                 <td class="note" ng-repeat="beat in note">
                   <button ng-click="vm.editNote(beat)">{{beat.on}}</button>
                 </td>
@@ -24,29 +30,9 @@
             </tbody>
           </table>
         </div>
-        <div flex class="second-box box">
-          I'm below on mobile, and to the right on larger devices
-        </div>
-        <div flex class="second-box box">
-          I'm below on mobile, and to the right on larger devices
-        </div>
-        <div flex class="second-box box">
-          I'm below on mobile, and to the right on larger devices
-        </div>
       </div>
     </div>
-    <br>
-    <div layout="row" layout-align="center center">
-      <div flex="30" flex-gt-sm="20" class="first-box box">
-        Here flex is 30
-      </div>
-
     </div>
-    <br>
-    <div layout="row" layout-align="center">
-      <md-button class="md-primary md-raised" ng-click="mc.showAlert($event)">Alert!</md-button>
-    </div>
-    <i class="material-icons">local_pizza</i>
 
   </div>
 </div>

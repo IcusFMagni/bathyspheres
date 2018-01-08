@@ -119,12 +119,15 @@ input {
 .first-box {
   background-color: #FE7F2D;
   width: 200px;
-  height: 4000px;
+  height: 400px;
 }
 
 .second-box {
   background-color: #FCCA46;
   width: 150%;
+  height: 1000px;
+  overflow-x: scroll;
+  overflow-y: scroll;
 }
 
 

@@ -5,6 +5,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
     self.currentProject = { name: 'nothing' };
     self.project = { list: [], arrayScore: [] }
     self.editOnlyOne = false;
+    self.songLength = 32
 
 
     self.createProject = function () {
@@ -89,4 +90,27 @@ myApp.service('ProjectService', ['$http', function ($http) {
         console.log('wait')
     }
 }
+
+    self.createReadableScore = function (array) {
+        console.log('in createReadableScore')
+        let readableScore = []
+
+        for (let i = 0; i < self.songLength; i++) {
+            readableScore.push(0)       
+        }
+        let note = []
+        for (let i = 0; i < array.length; i++) {
+            note = array[i]
+
+            for (let j = 0; j < self.songLength; j++) {
+
+                if (note[j].note > 0) {
+                    readableScore[j] = 44-i
+                }
+                
+            }
+            
+        }
+       return readableScore
+    }
 }])

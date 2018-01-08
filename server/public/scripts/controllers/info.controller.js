@@ -3,17 +3,35 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
   var self = this;
   self.userService = UserService;
   self.currentProject = ProjectService.currentProject;
-  self.project = ProjectService.project;
-  console.log(self.project.arrayScore[0])
+  self.project = ProjectService.project;  
+  self.createReadableScore = ProjectService.createReadableScore;
+  self.songLength = ProjectService.songLength
+  
+  
 
   self.editNote = ProjectService.editNote
+
+  
+  
+  
+  self.playTrack = function () {
+    let track = {
+      tempo: 135,
+      tracks: {
+        Bass: self.createReadableScore(self.project.arrayScore[0].score)
+      }
+    }
+    var ac = new AudioContext();
+      var s = new S(ac, track);
+      s.start();
+  }
+
 
   function note2freq(note) {
     return Math.pow(2, (note - 69) / 12) * 440;
   }
-  function S(ac, clap, track) {
+  function S(ac, track) {
     this.ac = ac;
-    this.clap = clap;
     this.track = track;
     this.rev = ac.createConvolver();
     this.rev.buffer = this.ReverbBuffer();
@@ -80,22 +98,14 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
     hpf.connect(this.sink);
     s.start(t);
   }
-  S.prototype.Clap = function (t) {
-    var s = this.ac.createBufferSource();
-    var g = this.ac.createGain();
-    s.buffer = this.clap;
-    s.connect(g);
-    g.connect(this.sink);
-    g.gain.value = 0.5;
-    s.start(t);
-  }
+
   S.prototype.Bass = function (t, note) {
     var o = this.ac.createOscillator();
     var o2 = this.ac.createOscillator();
     var g = this.ac.createGain();
     var g2 = this.ac.createGain();
     o.frequency.value = o2.frequency.value = note2freq(note);
-    o.type = o2.type = "sawtooth";
+    o.type = o2.type = "square";
     g.gain.setValueAtTime(1.0, t);
     g.gain.setTargetAtTime(0.0, t, 0.1);
     g2.gain.value = 0.5;
@@ -126,7 +136,7 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
     var lookahead = 0.5;
     if (current + lookahead > this.nextScheduling) {
       var steps = [];
-      for (var i = 0; i < 4; i++) {
+      for (var i = 0; i < self.songLength; i++) {
         steps.push(this.nextScheduling + i * beatLen / 4);
       }
       for (var i in this.track.tracks) {
@@ -140,37 +150,33 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
       }
       this.nextScheduling += (60 / this.track.tempo);
     }
-    setTimeout(this.scheduler.bind(this), 100);
+    // setTimeout(this.scheduler.bind(this), 100);  creates an infinite loop of the song
   }
-  var track = {
-    tempo: 135,
-    tracks: {
-      Kick: [1, 0, 0, 0, 1, 0, 0, 0,
-        1, 0, 0, 0, 1, 0, 0, 0,
-        1, 0, 0, 0, 1, 0, 0, 0,
-        1, 0, 0, 0, 1, 0, 0, 0],
-      Hats: [0, 0, 1, 0, 0, 0, 1, 0,
-        0, 0, 1, 0, 0, 0, 1, 1,
-        0, 0, 1, 0, 0, 0, 1, 0,
-        0, 0, 1, 0, 0, 0, 1, 0],
-      Clap: [0, 0, 0, 0, 1, 0, 0, 0,
-        0, 0, 0, 0, 1, 0, 0, 0,
-        0, 0, 0, 0, 1, 0, 0, 0,
-        0, 0, 0, 0, 1, 0, 0, 0],
-      Bass: [36, 0, 38, 36, 36, 38, 41, 0,
-        36, 60, 36, 0, 39, 0, 48, 0,
-        36, 0, 24, 60, 40, 40, 24, 24,
-        36, 60, 36, 0, 39, 0, 48, 0]
-    }
-  };
-  fetch('clap.ogg').then((response) => {
-    response.arrayBuffer().then((arraybuffer) => {
-      var ac = new AudioContext();
-      ac.decodeAudioData(arraybuffer).then((clap) => {
-        var s = new S(ac, clap, track);
-        s.start();
-      });
-    });
-  });
+  // var track = {
+  //   tempo: 135,
+  //   tracks: {
+  //     Kick: [1, 0, 0, 0, 1, 0, 0, 0,
+  //       1, 0, 0, 0, 1, 0, 0, 0,
+  //       1, 0, 0, 0, 1, 0, 0, 0,
+  //       1, 0, 0, 0, 1, 0, 0, 0],
+  //     Hats: [0, 0, 1, 0, 0, 0, 1, 0,
+  //       0, 0, 1, 0, 0, 0, 1, 1,
+  //       0, 0, 1, 0, 0, 0, 1, 0,
+  //       0, 0, 1, 0, 0, 0, 1, 0],
+  //     Bass: [36, 0, 38, 36, 36, 38, 41, 0,
+  //       36, 60, 36, 0, 39, 0, 48, 0,
+  //       36, 0, 24, 60, 40, 40, 24, 24,
+  //       36, 60, 36, 0, 39, 0, 48, 0]
+  //   }
+  // };
+  // fetch('clap.ogg').then((response) => {
+  //   response.arrayBuffer().then((arraybuffer) => {
+      // var ac = new AudioContext();
+      // ac.decodeAudioData(arraybuffer).then((clap) => {
+      //   var s = new S(ac, clap, track);
+      //   s.start();
+      // });
+  //   });
+  // });
 
 }]);

@@ -64,7 +64,7 @@ router.get('/tracks/:name', function (req, res) {
         } else {
 
             client.query(`SELECT * FROM component JOIN projects ON component.project_id=projects.id 
-            WHERE projects.project_name = $1;`,
+            WHERE projects.project_name = $1 ORDER BY component.component_name;`,
                 [name],
                 function (errorMakingQuery, result) {
                     done();
