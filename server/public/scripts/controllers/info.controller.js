@@ -21,9 +21,10 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
         Bass: self.createReadableScore(self.project.arrayScore[0].score)
       }
     }
-    var ac = new AudioContext();
-      var s = new S(ac, track);
+    let ac = new AudioContext();
+      let s = new S(ac, track);
       s.start();
+      setTimeout(function () {ac.close()}, self.songLength / 2 / track.tempo*60 * 1000 +50)
   }
 
 
@@ -150,6 +151,7 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
       }
       this.nextScheduling += (60 / this.track.tempo);
     }
+    
     // setTimeout(this.scheduler.bind(this), 100);  creates an infinite loop of the song
   }
   // var track = {
