@@ -6,6 +6,7 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
   self.project = ProjectService.project;  
   self.createReadableScore = ProjectService.createReadableScore;
   self.songLength = ProjectService.songLength
+  self.isPlaying = false
   
   
 
@@ -15,7 +16,9 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
   
   
   self.playTrack = function () {
-    let track = {
+    if (self.isPlaying == false)
+    {self.isPlaying = true;
+      let track = {
       tempo: 135,
       tracks: {
         Bass: self.createReadableScore(self.project.arrayScore[0].score)
@@ -24,7 +27,9 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
     let ac = new AudioContext();
       let s = new S(ac, track);
       s.start();
-      setTimeout(function () {ac.close()}, self.songLength / 2 / track.tempo*60 * 1000 +50)
+      setTimeout(function () {ac.close(); self.isPlaying = false}, self.songLength / 2 / track.tempo*60 * 1000 +50)
+      
+    }
   }
 
 
@@ -152,6 +157,12 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
       this.nextScheduling += (60 / this.track.tempo);
     }
     
+    stopTrack = function () {
+      if (self.isPlaying == true) {
+        self.isPlaying = false;
+        ac.close()
+      }
+    }
     // setTimeout(this.scheduler.bind(this), 100);  creates an infinite loop of the song
   }
   // var track = {
