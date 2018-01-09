@@ -111,7 +111,7 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
     var g = this.ac.createGain();
     var g2 = this.ac.createGain();
     o.frequency.value = o2.frequency.value = note2freq(note);
-    o.type = o2.type = "square";
+    o.type = o2.type = "triangle";
     g.gain.setValueAtTime(1.0, t);
     g.gain.setTargetAtTime(0.0, t, 0.1);
     g2.gain.value = 0.5;
