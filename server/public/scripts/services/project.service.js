@@ -33,7 +33,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
             url: '/projects',
             params: self.newProject
         }).then(function (response) {
-            console.log('response', response);
+
             self.getProjects()
         });
 
@@ -46,7 +46,6 @@ myApp.service('ProjectService', ['$http', function ($http) {
             url: '/projects'
         }).then(function (response) {
             self.projects.list = response.data;
-
         });
     };
 
@@ -98,7 +97,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
                     }
                 }
             }
-        })
+        }); 
     }
 
     self.editNote = function (beat) {
@@ -131,7 +130,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
     }
 
     self.createReadableScore = function (array) {
-        console.log('in createReadableScore')
+
         let readableScore = []
 
         for (let i = 0; i < self.songLength; i++) {
@@ -150,7 +149,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
             }
 
         }
-        console.log(readableScore)
+
         return readableScore
 
     }

@@ -23,7 +23,7 @@
           <table>
             <tbody>
               <tr ng-repeat="note in component.score">
-                {{console.log(note)}}
+                <td class="noteName">{{$index+1}}</td>
                 <td class="note" ng-repeat="beat in note">
                   <button ng-click="vm.editNote(beat)">{{beat.on}}</button>
                 </td>

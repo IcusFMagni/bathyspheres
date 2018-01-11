@@ -1,5 +1,4 @@
 myApp.controller('UserController', ['UserService', 'ProjectService', function (UserService, ProjectService) {
-  console.log('UserController created');
   var self = this;
 
   //functions
