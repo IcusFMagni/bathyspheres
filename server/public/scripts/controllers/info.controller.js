@@ -21,7 +21,8 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
       let track = {
       tempo: 135,
       tracks: {
-        Bass: self.createReadableScore(self.project.arrayScore[0].score)
+        Bass: self.createReadableScore(self.project.arrayScore[0].score),
+        Synth: self.createReadableScore(self.project.arrayScore[1].score)
       }
     }
     let ac = new AudioContext();
@@ -127,6 +128,30 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
     o.start(t);
     o.stop(t + 1);
   }
+
+  S.prototype.Synth = function (t, note) {
+    var o = this.ac.createOscillator();
+    var o2 = this.ac.createOscillator();
+    var g = this.ac.createGain();
+    var g2 = this.ac.createGain();
+    o.frequency.value = o2.frequency.value = note2freq(note);
+    o.type = o2.type = "sine";
+    g.gain.setValueAtTime(1.0, t);
+    g.gain.setTargetAtTime(0.0, t, 0.1);
+    g2.gain.value = 0.5;
+    // var lp = this.ac.createBiquadFilter();
+    // lp.Q.value = 25;
+    // lp.frequency.setValueAtTime(300, t);
+    // lp.frequency.setTargetAtTime(3000, t, 0.05);
+    o.connect(g);
+    o2.connect(g);
+    g.connect(g2);
+    // lp.connect(g2);
+    g2.connect(this.sink);
+    o.start(t);
+    o.stop(t + 1);
+  }
+
   S.prototype.clock = function () {
     var beatLen = 60 / this.track.tempo;
     return (this.ac.currentTime - this.startTime) / beatLen;
