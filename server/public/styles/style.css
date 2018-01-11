@@ -104,7 +104,6 @@ table {
 
 input {
   background-color: #FCCA46;
-  width: 100%;
 }
 
 .section {
@@ -158,4 +157,8 @@ button {
 }
 td {
   border-bottom: 1px solid #102C3D;
+}
+
+.inline {
+  width: 49%;
 }

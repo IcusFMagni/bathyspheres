@@ -36,7 +36,31 @@ router.get('/', function (req, res) {
 });
 
 
+router.get('/collaborator', function (req, res) {
+    pool.connect(function (errorConnectingToDatabase, client, done) {
+        if (errorConnectingToDatabase) {
+            console.log('Error connecting to database', errorConnectingToDatabase);
+            res.sendStatus(500);
+        } else {
 
+            client.query(`SELECT users.username, projects.project_name, projects.id
+            FROM projects JOIN projects_users_junction 
+            ON projects.id = projects_users_junction.project_id 
+            JOIN users ON users.id = projects.creator
+            WHERE projects_users_junction.user_id = $1;`,
+                [req.user.id], function (errorMakingQuery, result) {
+                    done();
+                    if (errorMakingQuery) {
+                        console.log('Error making query', errorMakingQuery);
+                        res.sendStatus(500);
+                    } else {
+                        console.log('HERE ARE THE RESULTS', result.rows)
+                        res.send(result.rows);
+                    }
+                });
+        }
+    });
+});
 
 router.post('/', function (req, res) {
     pool.connect(function (errorConnectingToDatabase, client, done) {
@@ -49,17 +73,17 @@ router.post('/', function (req, res) {
         INSERT INTO component ("component_name", "score", "project_id")
         VALUES ( 'bass', $3, (SELECT id FROM new_track)),
                 ('synth', $4, (SELECT id FROM new_track)),
-                ('kick', $5, (SELECT id FROM new_track));`, 
-                [req.user.id, req.query.name, constants.stringOf1792zeros, constants.stringOf1792zeros, constants.stringOf128zeros], 
+                ('kick', $5, (SELECT id FROM new_track));`,
+                [req.user.id, req.query.name, constants.stringOf1792zeros, constants.stringOf1792zeros, constants.stringOf128zeros],
                 function (errorMakingQuery, result) {
-                done();
-                if (errorMakingQuery) {
-                    console.log('Error making query', errorMakingQuery);
-                    res.sendStatus(500);
-                } else {
-                    res.sendStatus(200);
-                }
-            });
+                    done();
+                    if (errorMakingQuery) {
+                        console.log('Error making query', errorMakingQuery);
+                        res.sendStatus(500);
+                    } else {
+                        res.sendStatus(200);
+                    }
+                });
 
         }
     })
@@ -72,18 +96,18 @@ router.delete('/', function (req, res) {
             console.log('Error connecting to database', errorConnectingToDatabase);
             res.sendStatus(500);
         } else {
-            client.query(`DELETE FROM projects WHERE projects.project_name = $1 AND projects.creator = $2`, 
-                [req.query.track, req.user.id], 
+            client.query(`DELETE FROM projects WHERE projects.project_name = $1 AND projects.creator = $2`,
+                [req.query.track, req.user.id],
                 function (errorMakingQuery, result) {
-                done();
-                if (errorMakingQuery) {
-                    console.log('Error making query', errorMakingQuery);
-                    res.sendStatus(500);
-                } else {
-                    res.sendStatus(200);
+                    done();
+                    if (errorMakingQuery) {
+                        console.log('Error making query', errorMakingQuery);
+                        res.sendStatus(500);
+                    } else {
+                        res.sendStatus(200);
 
-                }
-            });
+                    }
+                });
 
         }
     })
@@ -168,17 +192,17 @@ router.post('/user', function (req, res) {
             res.sendStatus(500);
         } else {
             client.query(`INSERT INTO "projects_users_junction" ("user_id","project_id")
-            VALUES ($1,$2);`, 
-                [req.body.user, req.body.track], 
+            VALUES ($1,$2);`,
+                [req.body.user, req.body.track],
                 function (errorMakingQuery, result) {
-                done();
-                if (errorMakingQuery) {
-                    console.log('Error making query', errorMakingQuery);
-                    res.sendStatus(500);
-                } else {
-                    res.sendStatus(200);
-                }
-            });
+                    done();
+                    if (errorMakingQuery) {
+                        console.log('Error making query', errorMakingQuery);
+                        res.sendStatus(500);
+                    } else {
+                        res.sendStatus(200);
+                    }
+                });
 
         }
     })

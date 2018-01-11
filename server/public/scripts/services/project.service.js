@@ -2,7 +2,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
     var self = this;
     self.newProject = {};
     self.projects = { list: [] };
-    self.collaboratorList = {list:[]}
+    self.collaboratorList = { list: [] }
     self.currentProject = { name: 'nothing' };
     self.project = { list: [], arrayScore: [] }
     self.editOnlyOne = false;
@@ -13,14 +13,13 @@ myApp.service('ProjectService', ['$http', function ($http) {
         $http({
             method: 'GET',
             url: '/projects/user',
-            params: {user:collaborator}
+            params: { user: collaborator }
         }).then(function (response) {
-            console.log('user id:', response.data[0].id , project)
 
             $http({
                 method: 'POST',
                 url: '/projects/user',
-                data: {user:response.data[0].id, track:project}
+                data: { user: response.data[0].id, track: project }
             }).then(function (response) {
                 self.getProjects()
             });
@@ -55,14 +54,14 @@ myApp.service('ProjectService', ['$http', function ($http) {
         $http({
             method: 'GET',
             url: '/projects/collaborator'
-        }).then(function (response){
-            self.projects.collaboratorList = resposne.data
+        }).then(function (response) {
+            self.collaboratorList.list = response.data
         })
     };
 
 
     self.deleteProject = function (name) {
-        const send = {track:name}
+        const send = { track: name }
         $http({
             method: 'DELETE',
             url: '/projects',
@@ -104,39 +103,39 @@ myApp.service('ProjectService', ['$http', function ($http) {
 
     self.editNote = function (beat) {
         if (self.editOnlyOne == false) {
-        self.editOnlyOne = true
-        function replaceNote(string, index, replacement) {
-            let thing = string.substr(0, index) + replacement + string.substr(index + replacement.length);
-            return thing
+            self.editOnlyOne = true
+            function replaceNote(string, index, replacement) {
+                let thing = string.substr(0, index) + replacement + string.substr(index + replacement.length);
+                return thing
+            }
+            let noteValue = '00'
+            if (beat.on == 0) {
+                noteValue = '01';
+            }
+            let newString = {}
+            newString.string = replaceNote(self.project.list[beat.id].score, 2 * beat.position, noteValue)
+            newString.componentName = beat.componentName
+            newString.projectName = self.currentProject.name
+            $http({
+                method: 'PUT',
+                url: '/projects/tracks',
+                params: newString,
+            }).then(function (response) {
+                self.getTrack()
+                self.editOnlyOne = false
+            })
+
+        } else {
+            console.log('wait')
         }
-        let noteValue = '00'
-        if (beat.on == 0) {
-            noteValue = '01';
-        }
-        let newString = {}
-        newString.string = replaceNote(self.project.list[beat.id].score, 2 * beat.position, noteValue)
-        newString.componentName = beat.componentName
-        newString.projectName = self.currentProject.name
-        $http({
-            method: 'PUT',
-            url: '/projects/tracks',
-            params: newString,
-        }).then(function (response) {
-            self.getTrack()
-            self.editOnlyOne = false
-        })
-        
-    } else {
-        console.log('wait')
     }
-}
 
     self.createReadableScore = function (array) {
         console.log('in createReadableScore')
         let readableScore = []
 
         for (let i = 0; i < self.songLength; i++) {
-            readableScore.push(0)       
+            readableScore.push(0)
         }
         let note = []
         for (let i = 0; i < array.length; i++) {
@@ -145,14 +144,14 @@ myApp.service('ProjectService', ['$http', function ($http) {
             for (let j = 0; j < self.songLength; j++) {
 
                 if (note[j].note > 0) {
-                    readableScore[j] = 58-i
+                    readableScore[j] = 58 - i
                 }
-                
+
             }
-            
+
         }
         console.log(readableScore)
-       return readableScore
+        return readableScore
 
     }
 }])

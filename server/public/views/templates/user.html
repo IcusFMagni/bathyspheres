@@ -2,16 +2,18 @@
 <div class="container">
     <div layout=column></div>
     <div flex class="box">
+            <button class="btn btn-default" ng-click="vm.userService.logout()">Log Out</button>
         <h1 id="welcome" class="lead">Welcome, {{vm.userObject.userName}}! You are currently editing {{vm.currentProject.name}}</h1>
-        <form>
-            <input type="text" ng-model="vm.newProject.name">
-            <button ng-click="vm.createProject(vm.newProject)">New Project</button>
-        </form>
-        <button class="btn btn-default" ng-click="vm.userService.logout()">Log Out</button>
     </div>
     <div class="box" id="projectTable">
         <div>
             <h2>My Projects</h2>
+            <form>
+                    <span>
+                        <input class="inline" type="text" ng-model="vm.newProject.name">
+                        <button class="inline" ng-click="vm.createProject(vm.newProject)">New Project</button>
+                    </span>
+                </form>
         </div>
         <table>
             <thead>
@@ -37,7 +39,12 @@
                 <tr ng-repeat="project in vm.projects.list">
                     <td>{{project.project_name}}</td>
                     <td>{{vm.listCollaborators(project.array_agg)}}</td>
-                    <td><span><input placeholder="username" ng-model="project.collaboratorToAdd"><button ng-click="vm.addCollaborator(project.collaboratorToAdd, project.id)">ADD</button></span></td>
+                    <td>
+                        <span class="container">
+                            <input placeholder="username" ng-model="project.collaboratorToAdd">
+                            <button class="inline" ng-click="vm.addCollaborator(project.collaboratorToAdd, project.id)">ADD</button>
+                        </span>
+                    </td>
                     <td>
                         <button ng-click="vm.selectProject (project.project_name)">OPEN</button>
                     </td>
@@ -49,45 +56,42 @@
         </table>
     </div>
     <div class="box" id="projectTable">
-            <div>
-                <h2>Collaborator Project</h2>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>
-                            Project
-                        </th>
-                        <th>
-                            Creator
-                        </th>
-                        <th>
-                            Add Collaborator
-                        </th>
-                        <th>
-                            Open
-                        </th>
-                        <th>
-                            Delete
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="project in vm.projects.collaboratorList">
-                        <td>{{project.project_name}}</td>
-                        <td>{{vm.listCollaborators(project.array_agg)}}</td>
-                        <td><span><input placeholder="username" ng-model="project.collaboratorToAdd"><button ng-click="vm.addCollaborator(project.collaboratorToAdd, project.id)">ADD</button></span></td>
-                        <td>
-                            <button ng-click="vm.selectProject (project.project_name)">OPEN</button>
-                        </td>
-                        <td>
-                            <button ng-click="vm.deleteProject(project.project_name)">DELETE</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div>
+            <h2>Collaborator Projects</h2>
         </div>
+        <table ng-hide="vm.collaboratorList.list==[]">
+            <thead>
+                <tr>
+                    <th>
+                        Project
+                    </th>
+                    <th>
+                        Creator
+                    </th>
+                    <th>
+                        Open
+                    </th>
+                    <th>
+                        Remove (self)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="collaboratorProject in vm.collaboratorList.list">
+                    <td>{{collaboratorProject.project_name}}</td>
+                    <td>{{collaboratorProject.username}}</td>
+                    <td>
+                        <button ng-click="vm.selectProject (collaboratorProject.project_name)">OPEN</button>
+                    </td>
+                    <td>
+                        <button ng-click="vm.deleteProject(project.project_name)">REMOVE</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div ng-show="vm.collaboratorList.list == []">
+            <h2>Nobody wants to collaborate with you.</h2>
+        </div>
+    </div>
 </div>
-<h4>{{vm.project.list}}</h4>
-
 </div>

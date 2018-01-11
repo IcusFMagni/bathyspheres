@@ -1,4 +1,4 @@
-myApp.controller('UserController',['UserService', 'ProjectService', function(UserService, ProjectService) {
+myApp.controller('UserController', ['UserService', 'ProjectService', function (UserService, ProjectService) {
   console.log('UserController created');
   var self = this;
 
@@ -7,7 +7,7 @@ myApp.controller('UserController',['UserService', 'ProjectService', function(Use
   self.deleteProject = ProjectService.deleteProject
   self.createProject = ProjectService.createProject;
   self.addCollaborator = ProjectService.addCollaborator;
-  
+
 
 
   //variables
@@ -28,18 +28,18 @@ myApp.controller('UserController',['UserService', 'ProjectService', function(Use
     ProjectService.getTrack()
   }
 
-  
-  
+
+
 
 
 
   self.listCollaborators = function (list) {
     let stringToPrint = ''
     for (let i = 0; i < list.length; i++) {
-      stringToPrint += list[i] + ', '      
+      stringToPrint += list[i] + ', '
     }
     stringToPrint = stringToPrint.slice(0, -2)
-    if (stringToPrint === 'null'){
+    if (stringToPrint === 'null') {
       stringToPrint = 'None'
     }
     return stringToPrint

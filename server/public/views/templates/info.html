@@ -13,7 +13,6 @@
       <div layout="column">
         <div ng-repeat="component in vm.project.arrayScore" class="first-box box">
           <p>{{component.componentName}}</p>
-          {{vm.isPlaying}}
           <button ng-click="vm.createReadableScore(vm.project.arrayScore[0].score)">Edit</button>
         </div>
       </div>
@@ -24,6 +23,7 @@
           <table>
             <tbody>
               <tr ng-repeat="note in component.score">
+                {{console.log(note)}}
                 <td class="note" ng-repeat="beat in note">
                   <button ng-click="vm.editNote(beat)">{{beat.on}}</button>
                 </td>
