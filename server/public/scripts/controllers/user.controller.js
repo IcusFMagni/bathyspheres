@@ -6,6 +6,7 @@ myApp.controller('UserController', ['UserService', 'ProjectService', function (U
   self.deleteProject = ProjectService.deleteProject
   self.createProject = ProjectService.createProject;
   self.addCollaborator = ProjectService.addCollaborator;
+  self.removeSelf = ProjectService.removeSelf
 
 
 

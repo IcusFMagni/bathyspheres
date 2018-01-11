@@ -58,6 +58,17 @@ myApp.service('ProjectService', ['$http', function ($http) {
         })
     };
 
+    self.removeSelf = function (id) {
+
+        $http({
+            method: 'DELETE',
+            url: 'projects/collaborator',
+            params: {track:id}
+        }).then(function (response) {
+            self.getCollaboratorProjects()
+        })
+    }
+
 
     self.deleteProject = function (name) {
         const send = { track: name }

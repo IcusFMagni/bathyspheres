@@ -43,7 +43,7 @@ router.get('/collaborator', function (req, res) {
             res.sendStatus(500);
         } else {
 
-            client.query(`SELECT users.username, projects.project_name, projects.id
+            client.query(`SELECT users.username, projects.project_name, projects_users_junction.id
             FROM projects JOIN projects_users_junction 
             ON projects.id = projects_users_junction.project_id 
             JOIN users ON users.id = projects.creator
@@ -61,6 +61,29 @@ router.get('/collaborator', function (req, res) {
         }
     });
 });
+
+router.delete('/collaborator', function (req, res) {
+    pool.connect(function (errorConnectingToDatabase, client, done) {
+        if (errorConnectingToDatabase) {
+            console.log('Error connecting to database', errorConnectingToDatabase);
+            res.sendStatus(500);
+        } else {
+            client.query(`DELETE FROM projects_users_junction WHERE projects_users_junction.id = $1 AND projects_users_junction.user_id = $2;`,
+                [req.query.track, req.user.id],
+                function (errorMakingQuery, result) {
+                    done();
+                    if (errorMakingQuery) {
+                        console.log('Error making query', errorMakingQuery);
+                        res.sendStatus(500);
+                    } else {
+                        res.sendStatus(200);
+
+                    }
+                });
+
+        }
+    })
+})
 
 router.post('/', function (req, res) {
     pool.connect(function (errorConnectingToDatabase, client, done) {
