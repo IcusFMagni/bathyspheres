@@ -11,6 +11,7 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
   
 
   self.editNote = ProjectService.editNote
+  self.deleteProject = ProjectService.deleteProject
 
   
   

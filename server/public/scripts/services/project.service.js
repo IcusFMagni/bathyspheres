@@ -2,11 +2,31 @@ myApp.service('ProjectService', ['$http', function ($http) {
     var self = this;
     self.newProject = {};
     self.projects = { list: [] };
+    self.collaboratorList = {list:[]}
     self.currentProject = { name: 'nothing' };
     self.project = { list: [], arrayScore: [] }
     self.editOnlyOne = false;
     self.songLength = 32
 
+
+    self.addCollaborator = function (collaborator, project) {
+        $http({
+            method: 'GET',
+            url: '/projects/user',
+            params: {user:collaborator}
+        }).then(function (response) {
+            console.log('user id:', response.data[0].id , project)
+
+            $http({
+                method: 'POST',
+                url: '/projects/user',
+                data: {user:response.data[0].id, track:project}
+            }).then(function (response) {
+                self.getProjects()
+            });
+        });
+
+    };
 
     self.createProject = function () {
         $http({
@@ -16,9 +36,9 @@ myApp.service('ProjectService', ['$http', function ($http) {
         }).then(function (response) {
             console.log('response', response);
             self.getProjects()
-        })
+        });
 
-    }
+    };
 
 
     self.getProjects = function () {
@@ -31,6 +51,26 @@ myApp.service('ProjectService', ['$http', function ($http) {
         });
     };
 
+    self.getCollaboratorProjects = function () {
+        $http({
+            method: 'GET',
+            url: '/projects/collaborator'
+        }).then(function (response){
+            self.projects.collaboratorList = resposne.data
+        })
+    };
+
+
+    self.deleteProject = function (name) {
+        const send = {track:name}
+        $http({
+            method: 'DELETE',
+            url: '/projects',
+            params: send
+        }).then(function (resposne) {
+            self.getProjects()
+        })
+    }
     self.getTrack = function () {
         $http({
             method: 'GET',
@@ -105,12 +145,14 @@ myApp.service('ProjectService', ['$http', function ($http) {
             for (let j = 0; j < self.songLength; j++) {
 
                 if (note[j].note > 0) {
-                    readableScore[j] = 44-i
+                    readableScore[j] = 58-i
                 }
                 
             }
             
         }
+        console.log(readableScore)
        return readableScore
+
     }
 }])

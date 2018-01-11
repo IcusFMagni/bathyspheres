@@ -104,6 +104,7 @@ table {
 
 input {
   background-color: #FCCA46;
+  width: 100%;
 }
 
 .section {
@@ -138,14 +139,23 @@ h1 {
 .note {
   height: 5px;
   width: 5px;
+  border-bottom: 3px solid #102C3D;
 }
 
 button {
   background-color: #FE7F2D;
   color: #102C3D;
   width: 100%;
+  height: 100%
 }
 
 #projectTable {
   padding: 20px;
+}
+
+.note:nth-child(8n) {
+  border-right: 6px solid #102C3D;
+}
+td {
+  border-bottom: 1px solid #102C3D;
 }

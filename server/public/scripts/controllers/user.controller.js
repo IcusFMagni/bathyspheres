@@ -1,25 +1,37 @@
 myApp.controller('UserController',['UserService', 'ProjectService', function(UserService, ProjectService) {
   console.log('UserController created');
   var self = this;
-  self.newProject = ProjectService.newProject;
-  self.projects = ProjectService.projects;
 
+  //functions
+  self.newProject = ProjectService.newProject;
+  self.deleteProject = ProjectService.deleteProject
   self.createProject = ProjectService.createProject;
+  self.addCollaborator = ProjectService.addCollaborator;
+  
+
+
+  //variables
   self.currentProject = ProjectService.currentProject;
-  self.project = ProjectService.project
+  self.projects = ProjectService.projects;
+  self.collaboratorList = ProjectService.collaboratorList
+  self.project = ProjectService.project;
+
   self.userService = UserService;
   self.userObject = UserService.userObject;
+
+
+  ProjectService.getProjects()
+  ProjectService.getCollaboratorProjects()
 
   self.selectProject = function (name) {
     self.currentProject.name = name
     ProjectService.getTrack()
-
   }
 
   
   
 
-  ProjectService.getProjects()
+
 
   self.listCollaborators = function (list) {
     let stringToPrint = ''
