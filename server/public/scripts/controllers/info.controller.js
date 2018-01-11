@@ -2,34 +2,40 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
   var self = this;
   self.userService = UserService;
   self.currentProject = ProjectService.currentProject;
-  self.project = ProjectService.project;  
+  self.project = ProjectService.project;
   self.createReadableScore = ProjectService.createReadableScore;
   self.songLength = ProjectService.songLength
   self.isPlaying = false
-  
-  
+
+
 
   self.editNote = ProjectService.editNote
   self.deleteProject = ProjectService.deleteProject
 
-  
-  
-  
-  self.playTrack = function () {
-    if (self.isPlaying == false)
-    {self.isPlaying = true;
-      let track = {
-      tempo: 135,
-      tracks: {
-        Bass: self.createReadableScore(self.project.arrayScore[0].score),
-        Synth: self.createReadableScore(self.project.arrayScore[1].score)
-      }
+
+  self.stopTrack = function () {
+    if (self.isPlaying) {
+      self.isPlaying = false;
     }
-    let ac = new AudioContext();
+  }
+
+  self.playTrack = function () {
+    if (!self.isPlaying) {
+    self.isPlaying = true;
+      let track = {
+        tempo: 135,
+        tracks: {
+          Bass: self.createReadableScore(self.project.arrayScore[0].score),
+          Synth: self.createReadableScore(self.project.arrayScore[1].score)
+        }
+      }
+      let ac = new AudioContext();
       let s = new S(ac, track);
       s.start();
-      setTimeout(function () {ac.close(); self.isPlaying = false}, self.songLength / 2 / track.tempo*60 * 1000 +50)
-      
+      function closeAC() { ac.close() }
+      if (!self.isLooping) {
+        setTimeout(function () { self.isPlaying = false }, self.songLength / 2 / track.tempo * 60 * 1000 + 50)
+      }
     }
   }
 
@@ -162,33 +168,30 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
     this.scheduler();
   }
   S.prototype.scheduler = function () {
+
     var beatLen = 60 / this.track.tempo;
     var current = this.clock();
     var lookahead = 0.5;
-    if (current + lookahead > this.nextScheduling) {
-      var steps = [];
-      for (var i = 0; i < self.songLength; i++) {
-        steps.push(this.nextScheduling + i * beatLen / 4);
-      }
-      for (var i in this.track.tracks) {
-        for (var j = 0; j < steps.length; j++) {
-          var idx = Math.round(steps[j] / ((beatLen / 4)));
-          var note = this.track.tracks[i][idx % this.track.tracks[i].length];
-          if (note != 0) {
-            this[i](steps[j], note);
+    if (self.isPlaying == true) {
+      if (current + lookahead > this.nextScheduling) {
+        var steps = [];
+        for (var i = 0; i < 4; i++) {
+          steps.push(this.nextScheduling + i * beatLen / 4);
+        }
+        for (var i in this.track.tracks) {
+          for (var j = 0; j < steps.length; j++) {
+            var idx = Math.round(steps[j] / ((beatLen / 4)));
+            var note = this.track.tracks[i][idx % this.track.tracks[i].length];
+            if (note != 0) {
+              this[i](steps[j], note);
+            }
           }
         }
+        this.nextScheduling += (60 / this.track.tempo);
       }
-      this.nextScheduling += (60 / this.track.tempo);
-    }
-    
-    stopTrack = function () {
-      if (self.isPlaying == true) {
-        self.isPlaying = false;
-        ac.close()
-      }
-    }
-    // setTimeout(this.scheduler.bind(this), 100);  creates an infinite loop of the song
+      // creates an infinite loop of the song
+      setTimeout(this.scheduler.bind(this), 100);
+    } else { this.ac.close() }
   }
   // var track = {
   //   tempo: 135,
@@ -209,11 +212,11 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
   // };
   // fetch('clap.ogg').then((response) => {
   //   response.arrayBuffer().then((arraybuffer) => {
-      // var ac = new AudioContext();
-      // ac.decodeAudioData(arraybuffer).then((clap) => {
-      //   var s = new S(ac, clap, track);
-      //   s.start();
-      // });
+  // var ac = new AudioContext();
+  // ac.decodeAudioData(arraybuffer).then((clap) => {
+  //   var s = new S(ac, clap, track);
+  //   s.start();
+  // });
   //   });
   // });
 
