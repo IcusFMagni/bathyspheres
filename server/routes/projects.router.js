@@ -208,27 +208,29 @@ router.get('/user', function (req, res) {
 })
 
 router.post('/user', function (req, res) {
-    console.log(req.query.user, req.query.track)
-    pool.connect(function (errorConnectingToDatabase, client, done) {
-        if (errorConnectingToDatabase) {
-            console.log('Error connecting to database', errorConnectingToDatabase);
-            res.sendStatus(500);
-        } else {
-            client.query(`INSERT INTO "projects_users_junction" ("user_id","project_id")
+    if (req.isAuthenticated()) {
+        console.log(req.query.user, req.query.track)
+        pool.connect(function (errorConnectingToDatabase, client, done) {
+            if (errorConnectingToDatabase) {
+                console.log('Error connecting to database', errorConnectingToDatabase);
+                res.sendStatus(500);
+            } else {
+                client.query(`INSERT INTO "projects_users_junction" ("user_id","project_id")
             VALUES ($1,$2);`,
-                [req.body.user, req.body.track],
-                function (errorMakingQuery, result) {
-                    done();
-                    if (errorMakingQuery) {
-                        console.log('Error making query', errorMakingQuery);
-                        res.sendStatus(500);
-                    } else {
-                        res.sendStatus(200);
-                    }
-                });
+                    [req.body.user, req.body.track],
+                    function (errorMakingQuery, result) {
+                        done();
+                        if (errorMakingQuery) {
+                            console.log('Error making query', errorMakingQuery);
+                            res.sendStatus(500);
+                        } else {
+                            res.sendStatus(200);
+                        }
+                    });
 
-        }
-    })
+            }
+        })
+    }
 })
 
 module.exports = router;

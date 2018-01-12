@@ -20,12 +20,12 @@
         <div ng-repeat="component in vm.project.arrayScore" flex class="second-box box">
           <h2>{{component.componentName}}</h2>
           <p></p>
-          <table>
+          <table class="musicSheet">
             <tbody>
               <tr ng-repeat="note in component.score">
                 <td class="noteName">{{$index+1}}</td>
-                <td class="note" ng-repeat="beat in note">
-                  <button ng-click="vm.editNote(beat)">{{beat.on}}</button>
+                <td class="note td{{beat.on}} " ng-repeat="beat in note">
+                  <button ng-click="vm.editNote(beat)" class="td{{beat.on}}"></button>
                 </td>
               </tr>
             </tbody>

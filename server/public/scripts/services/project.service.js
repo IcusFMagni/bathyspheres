@@ -87,7 +87,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
         }).then(function (response) {
             self.project.list = angular.copy(response.data);
 
-            self.project.arrayScore = response.data;
+            self.project.arrayScore = [];
 
             for (let j = 0; j < self.project.list.length; j++) {
                 self.project.arrayScore[j] = { componentName: self.project.list[j].component_name, score: [] }
