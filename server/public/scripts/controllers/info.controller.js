@@ -4,13 +4,15 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
   self.currentProject = ProjectService.currentProject;
   self.project = ProjectService.project;
   self.createReadableScore = ProjectService.createReadableScore;
+  self.createReadableDrumScore = ProjectService.createReadableDrumScore;
   self.songLength = ProjectService.songLength
-  self.isPlaying = false
+  self.isPlaying = false;
+  self.isLooping = false;
 
 
 
-  self.editNote = ProjectService.editNote
-  self.deleteProject = ProjectService.deleteProject
+  self.editNote = ProjectService.editNote;
+  self.deleteProject = ProjectService.deleteProject;
 
 
   self.stopTrack = function () {
@@ -26,7 +28,10 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
         tempo: 135,
         tracks: {
           Bass: self.createReadableScore(self.project.arrayScore[0].score),
-          Synth: self.createReadableScore(self.project.arrayScore[1].score)
+          Synth: self.createReadableScore(self.project.arrayScore[1].score),
+          Hats: self.createReadableDrumScore(self.project.arrayScore[2].score[0]),
+          Kick: self.createReadableDrumScore(self.project.arrayScore[2].score[1])
+
         }
       }
       let ac = new AudioContext();

@@ -1,13 +1,13 @@
 <div ng-include="'views/partials/nav.html'">
 </div>
-
-<h1> {{vm.isPlaying}} </h1>
 <div class="section">
   <div>
     <div layout="column"> 
-      <div>
+      <div layout="row">
+        
         <button ng-click="vm.playTrack()">PLAY</button>
         <button ng-click="vm.stopTrack()">STOP</button>
+        <button ng-click="vm.isLooping=!vm.isLooping">Loop ({{vm.isLooping}})</button>
       </div>
     <div layout="row">
       <div layout="column">

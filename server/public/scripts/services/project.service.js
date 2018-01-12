@@ -63,7 +63,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
         $http({
             method: 'DELETE',
             url: 'projects/collaborator',
-            params: {track:id}
+            params: { track: id }
         }).then(function (response) {
             self.getCollaboratorProjects()
         })
@@ -108,7 +108,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
                     }
                 }
             }
-        }); 
+        });
     }
 
     self.editNote = function (beat) {
@@ -156,12 +156,18 @@ myApp.service('ProjectService', ['$http', function ($http) {
                 if (note[j].note > 0) {
                     readableScore[j] = 58 - i
                 }
-
             }
-
         }
-
         return readableScore
+    }
 
+    self.createReadableDrumScore = function (array) {
+        let readableDrumScore = []
+
+        for (let i = 0; i < array.length; i++) {
+            readableDrumScore.push(array[i].on)
+            
+        }
+        return readableDrumScore
     }
 }])
