@@ -93,10 +93,10 @@ router.post('/', function (req, res) {
         } else {
             client.query(`WITH new_track AS (INSERT INTO projects ("creator", "project_name")
             VALUES ($1, $2) RETURNING id) 
-        INSERT INTO component ("component_name", "score", "project_id")
-        VALUES ( 'bass', $3, (SELECT id FROM new_track)),
-                ('synth', $4, (SELECT id FROM new_track)),
-                ('kick', $5, (SELECT id FROM new_track));`,
+        INSERT INTO component ("component_name", type, "score", "project_id")
+        VALUES ( 'bass', synth, $3, (SELECT id FROM new_track)),
+                ('synth', synth, $4, (SELECT id FROM new_track)),
+                ('drum', drum, $5, (SELECT id FROM new_track));`,
                 [req.user.id, req.query.name, constants.stringOf1792zeros, constants.stringOf1792zeros, constants.stringOf128zeros],
                 function (errorMakingQuery, result) {
                     done();

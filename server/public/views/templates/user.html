@@ -1,19 +1,20 @@
-<div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
     <div layout=column></div>
     <div flex class="box">
-            <button class="btn btn-default" ng-click="vm.userService.logout()">Log Out</button>
-        <h1 id="welcome" class="lead">Welcome, {{vm.userObject.userName}}! You are currently editing {{vm.currentProject.name}}</h1>
+        <div class="lead container box">
+            <h3 id="welcome">Welcome, {{vm.userObject.userName}}! You are currently editing {{vm.currentProject.name}}</h3>
+            <form>
+                <span>
+                    <p>Create a new Project:</p>
+                    <input class="inline" type="text" placeholder="Project Name" ng-model="vm.newProject.name">
+                    <button class="inline" ng-click="vm.createProject(vm.newProject)">Create</button>
+                </span>
+            </form>
+        </div>
     </div>
     <div class="box" id="projectTable">
         <div>
             <h2>My Projects</h2>
-            <form>
-                    <span>
-                        <input class="inline" type="text" ng-model="vm.newProject.name">
-                        <button class="inline" ng-click="vm.createProject(vm.newProject)">New Project</button>
-                    </span>
-                </form>
         </div>
         <table>
             <thead>
@@ -95,3 +96,4 @@
     </div>
 </div>
 </div>
+<button class="btn btn-default" ng-click="vm.userService.logout()">Log Out</button>

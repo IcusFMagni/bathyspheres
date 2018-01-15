@@ -1,36 +1,42 @@
 /* color palate is Dark Blue #102C3D Orange #FE7F2D Aqua #45C1A6 Yellow #FCCA46 Green #A1C181  */
 body, html {
-  margin: 0;
-  padding: 0;
   font-family: sans-serif;
   font-size: 14px;
   background-color: #FCCA46;
-  color: #BFB48F;
+  color: rgb(218, 204, 160);
+}
+
+.login{
+  background-color: #102C3D;
+  padding: 10px;
+  border-style: outset;
+    border-color: #BFB48F;
+  border-width: 6px;
+  margin:100px;
+  color: #FE7F2D;
 }
 
 .instructions .container h1 {
-  font-size: 32px;
+  font-size: 46px;
   font-weight: 600;
   color: #FE7F2D;
+  padding: 4px;
 }
 
 .instructions {
   background-color: #102C3D;
-  color: #BFB48F;
-  padding: 15px;
+  color: #FE7F2D;
+  text-align: right;  
+  border-style: outset;
+    border-color: #BFB48F;
+  border-width: 6px;
 }
 
 #entryForm {
   margin-top: 14px;
+
 }
 
-#container {
-  margin-top: 10px;
-}
-
-.container p{
-  margin-top : 14px;
-}
 
 .message {
   padding: 10px 0;
@@ -54,8 +60,8 @@ body, html {
 
 .navbar {
   background-color: #102C3D;
-  width: 100%;
   border-radius: 0px;
+
 }
 
 ul {
@@ -71,7 +77,7 @@ li {
 
 li a {
   display: block;
-  color: #BFB48F;
+  color: rgb(218, 204, 160);
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -80,11 +86,11 @@ li a {
 /* Change the link color to #111 (black) on hover */
 li a:hover {
   text-decoration: underline;
-  color: #eee;
+
 }
 
 h2 {
-  background-color: #BFB48F;
+  background-color: rgb(218, 204, 160);
   color: #102C3D;
 }
 
@@ -93,32 +99,28 @@ td {
 }
 
 th {
-  background-color: #BFB48F;
+  background-color: rgb(218, 204, 160);
 }
 
 table {
-  background-color: #BFB48F;
+  background-color: rgb(218, 204, 160);
   color: #102C3D;
   width: 100%;
 
   border-style: outset;
-  border-color: #BFB48F;
+    border-color: #BFB48F;
   border-width: 6px;
 }
 
 input {
-  background-color: #FCCA46;
+  background-color: rgb(218, 204, 160);
 }
 
 .section {
   width: 100%;
 }
 
-.box {
 
-  color: white;
-  font-size: 2em;
-}
 
 .first-box {
   background-color: #FE7F2D;
@@ -156,8 +158,9 @@ button {
 }
 
 .note:nth-child(8n+1) {
-  border-right: 6px solid #BFB48F;
+  border-right: 6px solid rgb(218, 204, 160);
 }
+
 td {
   border-bottom: 3px solid #FE7F2D;
 }
@@ -181,13 +184,26 @@ td {
 
 .componentName {
   border-style: outset;
-  border-color: #BFB48F;
+    border-color: #BFB48F;
   border-width: 6px;
 
 }
 
 h2 {
   border-style: outset;
-  border-color: #BFB48F;
+  border-color:#BFB48F;
   border-width: 6px;
+}
+
+.fish {
+  height: 100px;
+}
+
+.lead {
+  border-style: outset;
+    border-color: #BFB48F;
+  border-width: 6px;
+  background-color:  rgb(218, 204, 160);
+  color: #102C3D;
+  padding:6px;
 }

@@ -1,5 +1,4 @@
-<div ng-include="'views/partials/nav.html'">
-</div>
+
 <div class="section">
   <div>
     <div layout="column"> 
@@ -13,7 +12,8 @@
       <div layout="column">
         <div ng-repeat="component in vm.project.arrayScore" class="first-box box">
           <p>{{component.componentName}}</p>
-          <button ng-click="vm.isViewing = $index">Edit</button>
+          <button ng-click="vm.isViewing = $index">Edit Score</button>
+          <button ng-click="vm.isViewing = $index + vm.project.arrayScore.length">Edit Component</button>
         </div>
       </div>
       <div layout="column">
