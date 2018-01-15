@@ -13,12 +13,12 @@
       <div layout="column">
         <div ng-repeat="component in vm.project.arrayScore" class="first-box box">
           <p>{{component.componentName}}</p>
-          <button ng-click="vm.createReadableScore(vm.project.arrayScore[0].score)">Edit</button>
+          <button ng-click="vm.isViewing = $index">Edit</button>
         </div>
       </div>
       <div layout="column">
-        <div ng-repeat="component in vm.project.arrayScore" flex class="second-box box">
-          <h2>{{component.componentName}}</h2>
+        <div ng-repeat="component in vm.project.arrayScore" ng-show="vm.isViewing == {{component.score[0][0].id}}" flex class="second-box box">
+          <h2 class="componentName">{{component.componentName}}</h2>
           <p></p>
           <table class="musicSheet">
             <tbody>

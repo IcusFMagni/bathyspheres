@@ -100,7 +100,10 @@ table {
   background-color: #BFB48F;
   color: #102C3D;
   width: 100%;
-  margin: 5px
+
+  border-style: outset;
+  border-color: #BFB48F;
+  border-width: 6px;
 }
 
 input {
@@ -120,15 +123,13 @@ input {
 .first-box {
   background-color: #FE7F2D;
   width: 200px;
-  height: 400px;
 }
 
 .second-box {
   background-color: #FCCA46;
   width: 150%;
-  height: 1000px;
   overflow-x: scroll;
-  overflow-y: scroll;
+
 }
 
 
@@ -175,4 +176,18 @@ td {
 
 .musicSheet {
   background-color: #102C3D
+}
+
+
+.componentName {
+  border-style: outset;
+  border-color: #BFB48F;
+  border-width: 6px;
+
+}
+
+h2 {
+  border-style: outset;
+  border-color: #BFB48F;
+  border-width: 6px;
 }

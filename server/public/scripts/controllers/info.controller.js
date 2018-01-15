@@ -8,6 +8,7 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
   self.songLength = ProjectService.songLength
   self.isPlaying = false;
   self.isLooping = false;
+  self.isViewing = 0
 
 
 
