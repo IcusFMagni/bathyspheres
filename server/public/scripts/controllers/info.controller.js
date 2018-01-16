@@ -9,6 +9,7 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
   self.isPlaying = false;
   self.isLooping = false;
   self.isViewing = 0
+  self.isViewingType = 0
 
 
 
