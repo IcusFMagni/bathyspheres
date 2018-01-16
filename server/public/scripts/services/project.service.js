@@ -91,6 +91,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
 
             for (let j = 0; j < self.project.list.length; j++) {
                 self.project.arrayScore[j] = { componentName: self.project.list[j].component_name, 
+                    componentID: self.project.list[j].id,
                     type: self.project.list[j].type, 
                     componentSettings: {
                         osc: self.project.list[j].osc,
@@ -145,6 +146,16 @@ myApp.service('ProjectService', ['$http', function ($http) {
         } else {
             console.log('wait')
         }
+    }
+    self.saveComponent = function (settings) {
+        console.log(settings)
+        $http({
+            method: 'PUT',
+            url: '/projects/component',
+            data: settings
+        }).then(function(response){
+            self.getTrack()
+        })
     }
 
     self.createReadableScore = function (array) {

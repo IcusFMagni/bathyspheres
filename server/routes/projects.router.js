@@ -83,6 +83,23 @@ router.delete('/collaborator', function (req, res) {
         }
     })
 })
+router.put('/component', function (req, res) {
+    pool.connect(function (errorConnectingToDatabase, client, done) {
+        if (errorConnectingToDatabase) {
+            console.log('Error connecting to database', errorConnectingToDatabase);
+            res.sendStatus(500);
+        } else {
+            client.query(`UPDATE component SET osc = $1, osc2 = $2, volume = $3 WHERE component.id = $4;;`, [req.body.componentSettings.osc, req.body.componentSettings.osc2, req.body.componentSettings.volume, req.body.componentID], function (err, result) {
+                    done()
+                    if (err) {
+                        res.sendStatus(500)
+                    } else {
+                        res.sendStatus(200)
+                    }
+                })
+        }
+    })
+})
 
 router.post('/', function (req, res) {
     pool.connect(function (errorConnectingToDatabase, client, done) {
@@ -143,7 +160,8 @@ router.get('/tracks/:name', function (req, res) {
             res.sendStatus(500);
         } else {
 
-            client.query(`SELECT * FROM component JOIN projects ON component.project_id=projects.id 
+            client.query(`SELECT component.component_name, component.id, component.score, component.type, component.osc, component.osc2, component.volume, projects.project_name, projects.creator 
+            FROM component JOIN projects ON component.project_id=projects.id 
             WHERE projects.project_name = $1 ORDER BY component.id;`,
                 [name],
                 function (errorMakingQuery, result) {
@@ -213,8 +231,8 @@ router.post('/user', function (req, res) {
                 res.sendStatus(500);
             } else {
                 client.query(`INSERT INTO "projects_users_junction" ("user_id","project_id")
-            VALUES ($1,$2);`,
-                    [req.body.user, req.body.track],
+            VALUES ($1, (SELECT id FROM projects WHERE id=$2 AND creator=$3));`,
+                    [req.body.user, req.body.track, req.user.id],
                     function (errorMakingQuery, result) {
                         done();
                         if (errorMakingQuery) {
