@@ -17,7 +17,6 @@ router.post('/', function(req, res, next) {
     username: req.body.username,
     password: encryptLib.encryptPassword(req.body.password)
   };
-  console.log('new user:', saveUser);
 
   pool.connect(function(err, client, done) {
     if(err) {

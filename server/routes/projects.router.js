@@ -54,7 +54,6 @@ router.get('/collaborator', function (req, res) {
                         console.log('Error making query', errorMakingQuery);
                         res.sendStatus(500);
                     } else {
-                        console.log('HERE ARE THE RESULTS', result.rows)
                         res.send(result.rows);
                     }
                 });
@@ -113,7 +112,6 @@ router.post('/', function (req, res) {
 })
 
 router.delete('/', function (req, res) {
-    console.log('in DELETE', req.query)
     pool.connect(function (errorConnectingToDatabase, client, done) {
         if (errorConnectingToDatabase) {
             console.log('Error connecting to database', errorConnectingToDatabase);
@@ -209,7 +207,6 @@ router.get('/user', function (req, res) {
 
 router.post('/user', function (req, res) {
     if (req.isAuthenticated()) {
-        console.log(req.query.user, req.query.track)
         pool.connect(function (errorConnectingToDatabase, client, done) {
             if (errorConnectingToDatabase) {
                 console.log('Error connecting to database', errorConnectingToDatabase);

@@ -28,11 +28,6 @@ myApp.controller('UserController', ['UserService', 'ProjectService', function (U
     ProjectService.getTrack()
   }
 
-
-
-
-
-
   self.listCollaborators = function (list) {
     let stringToPrint = ''
     for (let i = 0; i < list.length; i++) {
@@ -44,6 +39,5 @@ myApp.controller('UserController', ['UserService', 'ProjectService', function (U
     }
     return stringToPrint
   }
-
 
 }]);
