@@ -1,38 +1,59 @@
-
 <div class="section">
   <div>
-    <div layout="column"> 
+    <div layout="column">
       <div layout="row">
-        
+
         <button ng-click="vm.playTrack()">PLAY</button>
         <button ng-click="vm.stopTrack()">STOP</button>
         <button ng-click="vm.isLooping=!vm.isLooping">Loop ({{vm.isLooping}})</button>
       </div>
-    <div layout="row">
-      <div layout="column">
-        <div ng-repeat="component in vm.project.arrayScore" class="first-box box">
-          <p>{{component.componentName}}</p>
-          <button class="selector" ng-click="vm.isViewing = $index">Edit Score</button>
-          <button class="selector" ng-click="vm.isViewing = $index + vm.project.arrayScore.length">Edit Component</button>
+      <div layout="row">
+        <div layout="column">
+          <div ng-repeat="component in vm.project.arrayScore" class="first-box box">
+            <p>{{component.componentName}}</p>
+            <button class="selector" ng-click="vm.isViewing = $index">Edit Score</button>
+            <button class="selector" ng-click="vm.isViewing = $index + vm.project.arrayScore.length">Edit Component</button>
+          </div>
+        </div>
+        <div layout="column">
+          <div ng-repeat="component in vm.project.arrayScore" ng-show="vm.isViewing == {{component.score[0][0].id}}" flex class="second-box box">
+            <div class="editComponent" ng-if="component.type == 'synth'">
+              <h2 class="componentName">{{component.componentName}}</h2>
+              <h4>Oscillator 1:</h4>
+              <select ng-model="component.componentSettings.osc">
+                <option value="sine">Sine</option>
+                <option value="square">Square</option>
+                <option value="sawtooth">Sawtooth</option>
+                <option value="triangle">Triangle</option>
+              </select>
+              <h4>Oscillator 2:</h4>
+              <select ng-model="component.componentSettings.osc2">
+                <option value="sine">Sine</option>
+                <option value="square">Square</option>
+                <option value="sawtooth">Sawtooth</option>
+                <option value="triangle">Triangle</option>
+              </select>
+              <h4>Volume:</h4>
+              <div class="slidecontainer">
+                  <input type="range" min="0" max="100" ng-model="component.componentSettings.volume">
+                </div>
+
+            </div>
+            <h2 class="componentName">{{component.componentName}}</h2>
+            <p></p>
+            <table class="musicSheet">
+              <tbody>
+                <tr ng-repeat="note in component.score">
+                  <td class="noteName">{{$index+1}}</td>
+                  <td class="note td{{beat.on}} " ng-repeat="beat in note">
+                    <button ng-click="vm.editNote(beat)" class="td{{beat.on}}"></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-      <div layout="column">
-        <div ng-repeat="component in vm.project.arrayScore" ng-show="vm.isViewing == {{component.score[0][0].id}}" flex class="second-box box">
-          <h2 class="componentName">{{component.componentName}}</h2>
-          <p></p>
-          <table class="musicSheet">
-            <tbody>
-              <tr ng-repeat="note in component.score">
-                <td class="noteName">{{$index+1}}</td>
-                <td class="note td{{beat.on}} " ng-repeat="beat in note">
-                  <button ng-click="vm.editNote(beat)" class="td{{beat.on}}"></button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
     </div>
 
   </div>

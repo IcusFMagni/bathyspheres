@@ -12,6 +12,7 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
 
 
 
+
   self.editNote = ProjectService.editNote;
   self.deleteProject = ProjectService.deleteProject;
 
@@ -24,7 +25,7 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
 
   self.playTrack = function () {
     if (!self.isPlaying) {
-    self.isPlaying = true;
+      self.isPlaying = true;
       let track = {
         tempo: 135,
         tracks: {
@@ -124,10 +125,11 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
     var g = this.ac.createGain();
     var g2 = this.ac.createGain();
     o.frequency.value = o2.frequency.value = note2freq(note);
-    o.type = o2.type = "triangle";
+    o.type =  self.project.arrayScore[0].componentSettings.osc;
+    o2.type = self.project.arrayScore[0].componentSettings.osc2;
     g.gain.setValueAtTime(1.0, t);
     g.gain.setTargetAtTime(0.0, t, 0.1);
-    g2.gain.value = 0.5;
+    g2.gain.value = self.project.arrayScore[0].componentSettings.volume/100;
     var lp = this.ac.createBiquadFilter();
     lp.Q.value = 25;
     lp.frequency.setValueAtTime(300, t);
@@ -147,10 +149,11 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
     var g = this.ac.createGain();
     var g2 = this.ac.createGain();
     o.frequency.value = o2.frequency.value = note2freq(note);
-    o.type = o2.type = "sine";
+    o.type =  self.project.arrayScore[1].componentSettings.osc
+    o2.type = self.project.arrayScore[1].componentSettings.osc2;
     g.gain.setValueAtTime(1.0, t);
     g.gain.setTargetAtTime(0.0, t, 0.1);
-    g2.gain.value = 0.5;
+    g2.gain.value = self.project.arrayScore[1].componentSettings.volume/100;
     // var lp = this.ac.createBiquadFilter();
     // lp.Q.value = 25;
     // lp.frequency.setValueAtTime(300, t);

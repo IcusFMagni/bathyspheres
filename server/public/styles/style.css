@@ -215,3 +215,16 @@ h2 {
   margin: 6px;
   width:80%;
 }
+
+.editComponent {
+  background-color: rgb(218, 204, 160);
+  border-style: outset;
+  border-color: #BFB48F;
+  border-width: 6px; 
+  color: #102C3D;
+}
+
+select {
+  background-color: #FE7F2D;
+  color: #102C3D
+}
