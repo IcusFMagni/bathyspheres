@@ -17,6 +17,7 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
   self.editNote = ProjectService.editNote;
   self.deleteProject = ProjectService.deleteProject;
   self.saveComponent = ProjectService.saveComponent
+  self.getTrack = ProjectService.getTrack
 
 
   self.stopTrack = function () {
