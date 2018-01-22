@@ -1,5 +1,7 @@
 var express = require('express');
+var passport = require('passport')
 var router = express.Router();
+
 
 // Handles Ajax request for user information if user is authenticated
 router.get('/', function(req, res) {
@@ -18,6 +20,16 @@ router.get('/', function(req, res) {
     res.send(false);
   }
 });
+
+router.get('/facebook',
+  passport.authenticate('facebook'));
+
+router.get('/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/home' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/user');
+  });
 
 // clear all server session information about this user
 router.get('/logout', function(req, res) {

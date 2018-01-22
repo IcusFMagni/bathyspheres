@@ -5,6 +5,16 @@ myApp.controller('LoginController', function($http, $location, UserService) {
       password: ''
     };
     vm.message = '';
+    
+    vm.facebookLogin = function () {
+      console.log('in facebookLogin')
+      $http ({
+        method: 'GET',
+        url: '/user/facebook'
+      }).then(function(response){
+        console.log('facebook', response)
+      })
+    }
 
     vm.login = function() {
       if(vm.user.username === '' || vm.user.password === '') {
@@ -15,10 +25,10 @@ myApp.controller('LoginController', function($http, $location, UserService) {
             // location works with SPA (ng-route)
             $location.path('/user'); // http://localhost:5000/#/user
           } else {
-            vm.message = "Wrong!!";
+            vm.message = "Nope";
           }
         }).catch(function(response){
-          vm.message = "Wrong!!";
+          vm.message = "Nope";
         });
       }
     };

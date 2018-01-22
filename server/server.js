@@ -36,6 +36,11 @@ app.use('/projects', projects);
 // Catch all bucket, must be last!
 app.use('/', indexRouter);
 
+app.all('/*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    next();
+});
+
 
 // Listen //
 app.listen(port, function(){

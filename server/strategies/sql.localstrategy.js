@@ -1,7 +1,10 @@
+require('dotenv').config()
 var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
 var encryptLib = require('../modules/encryption');
 var pool = require('../modules/pool.js');
+var FacebookStrategy = require('passport-facebook').Strategy
+
 
 passport.serializeUser(function(user, done) {
     done(null, user.id);
@@ -87,6 +90,20 @@ passport.use('local', new localStrategy({
           });
 	    });
     }
+));
+
+
+passport.use('facebook', new FacebookStrategy({
+  clientID: process.env.FACEBOOK_APP_ID,
+  clientSecret: process.env.FACEBOOK_APP_SECRET,
+  callbackURL: process.env.FACEBOOK_APP_URL
+},
+function(accessToken, refreshToken, profile, done) {
+  User.findOrCreate( {facebookId: profile.id}, function(err, user) {
+    if (err) { return done(err); }
+    done(null, user);
+  });
+}
 ));
 
 module.exports = passport;
