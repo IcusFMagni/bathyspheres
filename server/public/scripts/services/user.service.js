@@ -2,6 +2,7 @@ myApp.service('UserService', function($http, $location){
   var self = this;
   self.userObject = {};
 
+  //Log in
   self.getuser = function(){
     $http.get('/user').then(function(response) {
         if(response.data.username) {
@@ -18,6 +19,7 @@ myApp.service('UserService', function($http, $location){
     });
   },
 
+  //Log out
   self.logout = function() {
     console.log('UserService -- logout');
     $http.get('/user/logout').then(function(response) {

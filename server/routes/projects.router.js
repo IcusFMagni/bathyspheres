@@ -5,6 +5,8 @@ var path = require('path');
 var pool = require('../modules/pool')
 var constants = require('../modules/constants')
 
+
+// gets projects user has created
 router.get('/', function (req, res) {
     pool.connect(function (errorConnectingToDatabase, client, done) {
         if (errorConnectingToDatabase) {
@@ -35,7 +37,7 @@ router.get('/', function (req, res) {
     });
 });
 
-
+//gets projects user is collaborator on
 router.get('/collaborator', function (req, res) {
     pool.connect(function (errorConnectingToDatabase, client, done) {
         if (errorConnectingToDatabase) {
@@ -61,6 +63,7 @@ router.get('/collaborator', function (req, res) {
     });
 });
 
+// deletes a collaborator from a project
 router.delete('/collaborator', function (req, res) {
     pool.connect(function (errorConnectingToDatabase, client, done) {
         if (errorConnectingToDatabase) {
@@ -83,6 +86,8 @@ router.delete('/collaborator', function (req, res) {
         }
     })
 })
+
+// updates synth properties
 router.put('/component', function (req, res) {
     pool.connect(function (errorConnectingToDatabase, client, done) {
         if (errorConnectingToDatabase) {
@@ -101,6 +106,7 @@ router.put('/component', function (req, res) {
     })
 })
 
+// creates a new project and it's components
 router.post('/', function (req, res) {
     pool.connect(function (errorConnectingToDatabase, client, done) {
         if (errorConnectingToDatabase) {
@@ -128,6 +134,7 @@ router.post('/', function (req, res) {
     })
 })
 
+// delete's a project
 router.delete('/', function (req, res) {
     pool.connect(function (errorConnectingToDatabase, client, done) {
         if (errorConnectingToDatabase) {
@@ -151,6 +158,7 @@ router.delete('/', function (req, res) {
     })
 })
 
+// get's component properties on a project
 router.get('/tracks/:name', function (req, res) {
     var name = req.params.name
 
@@ -178,6 +186,7 @@ router.get('/tracks/:name', function (req, res) {
     });
 })
 
+// updates score for a track
 router.put('/tracks', function (req, res) {
     pool.connect(function (err, client, done) {
         if (err) {
@@ -198,7 +207,7 @@ router.put('/tracks', function (req, res) {
     })
 })
 
-
+// get's a user id from a username
 router.get('/user', function (req, res) {
     pool.connect(function (errorConnectingToDatabase, client, done) {
         if (errorConnectingToDatabase) {
@@ -223,6 +232,7 @@ router.get('/user', function (req, res) {
     });
 })
 
+// adds a collaborator to a project
 router.post('/user', function (req, res) {
     if (req.isAuthenticated()) {
         pool.connect(function (errorConnectingToDatabase, client, done) {

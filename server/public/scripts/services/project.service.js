@@ -8,7 +8,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
     self.editOnlyOne = false;
     self.songLength = 32
 
-
+    //adds a collaborator to a project
     self.addCollaborator = function (collaborator, project) {
         $http({
             method: 'GET',
@@ -26,7 +26,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
         });
 
     };
-
+    // creates a new project
     self.createProject = function () {
         $http({
             method: 'POST',
@@ -39,7 +39,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
 
     };
 
-
+    // get the projects user has created
     self.getProjects = function () {
         $http({
             method: 'GET',
@@ -49,6 +49,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
         });
     };
 
+    // get the projects user is a collaborator on
     self.getCollaboratorProjects = function () {
         $http({
             method: 'GET',
@@ -58,6 +59,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
         })
     };
 
+    // removes user from project they are a collaborator on
     self.removeSelf = function (id) {
 
         $http({
@@ -69,7 +71,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
         })
     }
 
-
+    // deletes a project user is a creator on
     self.deleteProject = function (name) {
         const send = { track: name }
         $http({
@@ -80,6 +82,8 @@ myApp.service('ProjectService', ['$http', function ($http) {
             self.getProjects()
         })
     }
+
+    // get's specific data for a project
     self.getTrack = function () {
         $http({
             method: 'GET',
@@ -89,6 +93,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
 
             self.project.arrayScore = [];
 
+            // makes the data for a project more easily used on DOM
             for (let j = 0; j < self.project.list.length; j++) {
                 self.project.arrayScore[j] = { componentName: self.project.list[j].component_name, 
                     componentID: self.project.list[j].id,
@@ -119,6 +124,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
         });
     }
 
+    // edit's a single note in project
     self.editNote = function (beat) {
         if (self.editOnlyOne == false) {
             self.editOnlyOne = true
@@ -147,6 +153,8 @@ myApp.service('ProjectService', ['$http', function ($http) {
             console.log('wait')
         }
     }
+
+    // edits a single component's (synth, bass, etc...) properties
     self.saveComponent = function (settings) {
         console.log(settings)
         $http({
@@ -158,6 +166,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
         })
     }
 
+    // creates a synth score S can read
     self.createReadableScore = function (array) {
 
         let readableScore = []
@@ -179,6 +188,7 @@ myApp.service('ProjectService', ['$http', function ($http) {
         return readableScore
     }
 
+    // creates a drum score S can read
     self.createReadableDrumScore = function (array) {
         let readableDrumScore = []
 

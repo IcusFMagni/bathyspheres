@@ -23,11 +23,13 @@ myApp.controller('UserController', ['UserService', 'ProjectService', function (U
   ProjectService.getProjects()
   ProjectService.getCollaboratorProjects()
 
+  // Selects a project then runs a get to get track data
   self.selectProject = function (name) {
     self.currentProject.name = name
     ProjectService.getTrack()
   }
 
+  // Selects who else has access to track
   self.listCollaborators = function (list) {
     let stringToPrint = ''
     for (let i = 0; i < list.length; i++) {

@@ -13,7 +13,7 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
 
 
 
-
+  
   self.editNote = ProjectService.editNote;
   self.deleteProject = ProjectService.deleteProject;
   self.saveComponent = ProjectService.saveComponent
@@ -85,6 +85,7 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
     }
     return buf;
   }
+  //The Bass Drum
   S.prototype.Kick = function (t) {
     var o = this.ac.createOscillator();
     var g = this.ac.createGain();
@@ -107,6 +108,7 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
     osc2.start(t);
     osc2.stop(t + 1);
   }
+  //The High Hats
   S.prototype.Hats = function (t) {
     var s = this.ac.createBufferSource();
     s.buffer = this.NoiseBuffer();
@@ -121,7 +123,7 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
     hpf.connect(this.sink);
     s.start(t);
   }
-
+  //The Bass Synthesizer 
   S.prototype.Bass = function (t, note) {
     var o = this.ac.createOscillator();
     var o2 = this.ac.createOscillator();
@@ -145,7 +147,7 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
     o.start(t);
     o.stop(t + 1);
   }
-
+  //  Main Synthesizer
   S.prototype.Synth = function (t, note) {
     var o = this.ac.createOscillator();
     var o2 = this.ac.createOscillator();
@@ -157,19 +159,14 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
     g.gain.setValueAtTime(1.0, t);
     g.gain.setTargetAtTime(0.0, t, 0.1);
     g2.gain.value = self.project.arrayScore[1].componentSettings.volume/100;
-    // var lp = this.ac.createBiquadFilter();
-    // lp.Q.value = 25;
-    // lp.frequency.setValueAtTime(300, t);
-    // lp.frequency.setTargetAtTime(3000, t, 0.05);
     o.connect(g);
     o2.connect(g);
     g.connect(g2);
-    // lp.connect(g2);
     g2.connect(this.sink);
     o.start(t);
     o.stop(t + 1);
   }
-
+// A clock for setting tempo.
   S.prototype.clock = function () {
     var beatLen = 60 / this.track.tempo;
     return (this.ac.currentTime - this.startTime) / beatLen;
@@ -179,6 +176,7 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
     this.nextScheduling = 0;
     this.scheduler();
   }
+  //"schedules" when notes will be played
   S.prototype.scheduler = function () {
 
     var beatLen = 60 / this.track.tempo;
@@ -205,6 +203,7 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
       setTimeout(this.scheduler.bind(this), 100);
     } else { this.ac.close() }
   }
+  // This code is an example of how the new S takes in tracks
   // var track = {
   //   tempo: 135,
   //   tracks: {
@@ -222,6 +221,8 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
   //       36, 60, 36, 0, 39, 0, 48, 0]
   //   }
   // };
+
+  //This Code is for buffering audio samples and is currently not in use
   // fetch('clap.ogg').then((response) => {
   //   response.arrayBuffer().then((arraybuffer) => {
   // var ac = new AudioContext();
