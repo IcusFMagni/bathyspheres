@@ -42,7 +42,6 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
       let ac = new AudioContext();
       let s = new S(ac, track);
       s.start();
-      function closeAC() { ac.close() }
       if (!self.isLooping) {
         setTimeout(function () { self.isPlaying = false }, self.songLength / 2 / track.tempo * 60 * 1000 + 50)
       }
