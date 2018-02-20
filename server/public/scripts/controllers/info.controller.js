@@ -49,7 +49,7 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
     }
   }
 
-
+  // converts notes to frequencies.
   function note2freq(note) {
     return Math.pow(2, (note - 69) / 12) * 440;
   }
@@ -63,6 +63,7 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
     this.rev.connect(ac.destination);
     this.sink.connect(ac.destination);
   }
+  //creates a static crackle sound
   S.prototype.NoiseBuffer = function () {
     if (!S._NoiseBuffer) {
       S._NoiseBuffer = this.ac.createBuffer(1, this.ac.sampleRate / 10, this.ac.sampleRate);
@@ -73,6 +74,7 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
     }
     return S._NoiseBuffer;
   }
+  // creates reverb effect
   S.prototype.ReverbBuffer = function () {
     var len = 0.5 * this.ac.sampleRate,
       decay = 0.5;
@@ -85,7 +87,7 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
     }
     return buf;
   }
-  //The Bass Drum
+  //The Bass Drum 
   S.prototype.Kick = function (t) {
     var o = this.ac.createOscillator();
     var g = this.ac.createGain();
@@ -108,7 +110,7 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
     osc2.start(t);
     osc2.stop(t + 1);
   }
-  //The High Hats
+  //The High Hats 
   S.prototype.Hats = function (t) {
     var s = this.ac.createBufferSource();
     s.buffer = this.NoiseBuffer();
@@ -203,6 +205,7 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
       setTimeout(this.scheduler.bind(this), 100);
     } else { this.ac.close() }
   }
+}]);
   // This code is an example of how the new S takes in tracks
   // var track = {
   //   tempo: 135,
@@ -232,5 +235,3 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
   // });
   //   });
   // });
-
-}]);
