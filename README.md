@@ -1,21 +1,19 @@
-# Name of Project
+# Bathyspheres
 
-One Paragraph of project description goes here. Link to the live version of the app if it's hosted on Heroku.
+Bathyspheres allows a user to login, load up a project they’ve shared with a collaborator, and get right to making music. One user might be working on writing the music while another simultaneously edits the synth to get that perfect sound.
 
 ## Built With
 
-List technologies and frameworks here
+PostgreSQL, JavaScript, AngularJS, AngularJS Material, Web Audio Api, Node, HTML, and CSS.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+npm install
 
 ### Prerequisites
 
-Link to software that is required to install the app (e.g. node).
 
 - [Node.js](https://nodejs.org/en/)
-- List other prerequisites here
 
 
 ### Installing
@@ -28,38 +26,42 @@ CREATE TABLE "users" (
   "username" varchar(80) not null UNIQUE,
   "password" varchar(240) not null
 );
+
+CREATE TABLE "projects" (
+	"id" SERIAL PRIMARY KEY,
+	"project_name" VARCHAR(200) NOT NULL,
+	"creator" INT REFERENCES users(id)
+	);
+	
+CREATE TABLE "projects_users_junction" (
+	"id" SERIAL PRIMARY KEY,
+	"project_id" INT REFERENCES projects(id),
+	"user_id" INT REFERENCES users(id)
+	);
+
+CREATE TABLE "component" (
+	"id" SERIAL PRIMARY KEY,
+	"component_name" VARCHAR (140) NOT NULL,
+	"project_id" INT REFERENCES projects(id) NOT NULL,
+	"score" VARCHAR (1792) NOT NULL,
+	"preset_id" INT REFERENCES presets(id) NOT NULL
+
+);
+
+CREATE TABLE "presets" (
+	"id" SERIAL PRIMARY KEY,
+	"user_id" INT REFERENCES users(id),
+	"preset_name" VARCHAR (280)
+	);
 ```
 
-## Screen Shot
 
-Include one or two screen shots of your project here (optional). Remove if unused.
 
-## Documentation
-
-Link to a read-only version of your scope document or other relevant documentation here (optional). Remove if unused.
-
-### Completed Features
-
-High level list of items completed.
-
-- [x] Feature a
-- [x] Feature b
-
-### Next Steps
-
-Features that you would like to add at some point in the future.
-
-- [ ] Feature c
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Authors
-
-* Name of author(s)
+Danika Ragnhild (Awl)
 
 
 ## Acknowledgments
 
-* Hat tip to anyone who's code was used
+A thank you to padenot without whom's litsynth this would not be possible.
