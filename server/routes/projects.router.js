@@ -168,7 +168,8 @@ router.get('/tracks/:name', function (req, res) {
             res.sendStatus(500);
         } else {
 
-            client.query(`SELECT component.component_name, component.id, component.score, component.type, component.osc, component.osc2, component.volume, projects.project_name, projects.creator 
+            client.query(`SELECT component.component_name, component.id, component.score, component.type, 
+            component.osc, component.osc2, component.volume, projects.project_name, projects.creator, projects.tempo 
             FROM component JOIN projects ON component.project_id=projects.id 
             WHERE projects.project_name = $1 ORDER BY component.id;`,
                 [name],
@@ -178,7 +179,6 @@ router.get('/tracks/:name', function (req, res) {
                         console.log('Error making query', errorMakingQuery);
                         res.sendStatus(500);
                     } else {
-
                         res.send(result.rows);
                     }
                 });
