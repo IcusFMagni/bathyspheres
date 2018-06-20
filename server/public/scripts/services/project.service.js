@@ -93,6 +93,8 @@ myApp.service('ProjectService', ['$http', function ($http) {
 
             self.project.arrayScore = [];
 
+            self.project.tempo = response.data[0].tempo
+
             // makes the data for a project more easily used on DOM
             for (let j = 0; j < self.project.list.length; j++) {
                 self.project.arrayScore[j] = { componentName: self.project.list[j].component_name, 
