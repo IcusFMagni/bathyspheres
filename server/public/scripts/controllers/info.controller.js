@@ -18,6 +18,7 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
   self.deleteProject = ProjectService.deleteProject;
   self.saveComponent = ProjectService.saveComponent
   self.getTrack = ProjectService.getTrack
+  self.setTempo = ProjectService.setTempo
 
 
   self.stopTrack = function () {

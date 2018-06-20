@@ -200,4 +200,14 @@ myApp.service('ProjectService', ['$http', function ($http) {
         }
         return readableDrumScore
     }
+
+    self.setTempo = function () {
+        // $http({
+        //     method: 'PUT',
+        //     url: '/projects/tempo',
+        //     data: self.project
+        // }).then(function(response){
+        //     self.getTrack()
+        // })
+    }
 }])
