@@ -201,13 +201,22 @@ myApp.service('ProjectService', ['$http', function ($http) {
         return readableDrumScore
     }
 
+    //Changes the Tempo for selected Song
     self.setTempo = function () {
-        // $http({
-        //     method: 'PUT',
-        //     url: '/projects/tempo',
-        //     data: self.project
-        // }).then(function(response){
-        //     self.getTrack()
-        // })
+        let tempoToSend = 0
+        if(self.project.tempo > 220) {
+            tempoToSend = 220
+        } else if (self.project.tempo < 20) {
+            tempoToSend = 20
+        } else {
+            tempoToSend = Math.round(self.project.tempo)
+        }
+        $http({
+            method: 'PUT',
+            url: '/projects/tempo',
+            data: {tempo: tempoToSend, track: self.currentProject.name}
+        }).then(function(response){
+            self.getTrack()
+        })
     }
 }])

@@ -94,7 +94,7 @@ router.put('/component', function (req, res) {
             console.log('Error connecting to database', errorConnectingToDatabase);
             res.sendStatus(500);
         } else {
-            client.query(`UPDATE component SET osc = $1, osc2 = $2, volume = $3 WHERE component.id = $4;;`, [req.body.componentSettings.osc, req.body.componentSettings.osc2, req.body.componentSettings.volume, req.body.componentID], function (err, result) {
+            client.query(`UPDATE component SET osc = $1, osc2 = $2, volume = $3 WHERE component.id = $4;`, [req.body.componentSettings.osc, req.body.componentSettings.osc2, req.body.componentSettings.volume, req.body.componentID], function (err, result) {
                     done()
                     if (err) {
                         res.sendStatus(500)
@@ -256,6 +256,25 @@ router.post('/user', function (req, res) {
             }
         })
     }
+})
+
+//updates a project's tempo
+router.put('/tempo', function (req, res) {
+    pool.connect(function (err, client, done) {
+        if (err) {
+            console.log('Error connecting to database', err);
+            res.sendStatus(500);
+        } else {
+            client.query(`UPDATE projects SET tempo = $1 WHERE project_name = $2;`, [req.body.tempo, req.body.track], function (err, result) {
+                    done()
+                    if (err) {
+                        res.sendStatus(500)
+                    } else {
+                        res.sendStatus(200)
+                    }
+                })
+        }
+    })
 })
 
 module.exports = router;
