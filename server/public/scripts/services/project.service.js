@@ -93,6 +93,8 @@ myApp.service('ProjectService', ['$http', function ($http) {
 
             self.project.arrayScore = [];
 
+            self.project.tempo = response.data[0].tempo
+
             // makes the data for a project more easily used on DOM
             for (let j = 0; j < self.project.list.length; j++) {
                 self.project.arrayScore[j] = { componentName: self.project.list[j].component_name, 
@@ -197,5 +199,24 @@ myApp.service('ProjectService', ['$http', function ($http) {
             
         }
         return readableDrumScore
+    }
+
+    //Changes the Tempo for selected Song
+    self.setTempo = function () {
+        let tempoToSend = 0
+        if(self.project.tempo > 220) {
+            tempoToSend = 220
+        } else if (self.project.tempo < 20) {
+            tempoToSend = 20
+        } else {
+            tempoToSend = Math.round(self.project.tempo)
+        }
+        $http({
+            method: 'PUT',
+            url: '/projects/tempo',
+            data: {tempo: tempoToSend, track: self.currentProject.name}
+        }).then(function(response){
+            self.getTrack()
+        })
     }
 }])

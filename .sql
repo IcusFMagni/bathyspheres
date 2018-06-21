@@ -30,3 +30,6 @@ CREATE TABLE "presets" (
 	"user_id" INT REFERENCES users(id),
 	"preset_name" VARCHAR (280)
 	);
+
+ALTER TABLE "projects" 
+    ADD COLUMN "tempo" INT DEFAULT 135;

@@ -18,6 +18,7 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
   self.deleteProject = ProjectService.deleteProject;
   self.saveComponent = ProjectService.saveComponent
   self.getTrack = ProjectService.getTrack
+  self.setTempo = ProjectService.setTempo
 
 
   self.stopTrack = function () {
@@ -30,7 +31,7 @@ myApp.controller('InfoController', ['UserService', 'ProjectService', function (U
     if (!self.isPlaying) {
       self.isPlaying = true;
       let track = {
-        tempo: 135,
+        tempo: self.project.tempo,
         tracks: {
           Bass: self.createReadableScore(self.project.arrayScore[0].score),
           Synth: self.createReadableScore(self.project.arrayScore[1].score),

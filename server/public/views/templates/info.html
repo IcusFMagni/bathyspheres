@@ -10,6 +10,10 @@
       </div>
       <div layout="row">
         <div layout="column">
+          <div class="first-box box">
+            <input ng-model="vm.project.tempo" type="number">
+            <button ng-click="vm.setTempo()">Set Tempo</button>
+          </div>
           <div ng-repeat="component in vm.project.arrayScore" class="first-box box">
             <p>{{component.componentName}}</p>
             <button class="selector" ng-click="vm.isViewing = $index; vm.isViewingType = 0">Edit Score</button>
@@ -19,28 +23,28 @@
         <div layout="column">
           <div ng-repeat="component in vm.project.arrayScore" ng-show="vm.isViewing == {{component.score[0][0].id}}" flex class="second-box box">
             <div ng-show="vm.isViewingType == 1">
-            <div class="editComponent" ng-if="component.type == 'synth'">
-              <h2 class="componentName">{{component.componentName}}</h2>
-              <h4>Oscillator 1:</h4>
-              <select ng-model="component.componentSettings.osc">
-                <option value="sine">Sine</option>
-                <option value="square">Square</option>
-                <option value="sawtooth">Sawtooth</option>
-                <option value="triangle">Triangle</option>
-              </select>
-              <h4>Oscillator 2:</h4>
-              <select ng-model="component.componentSettings.osc2">
-                <option value="sine">Sine</option>
-                <option value="square">Square</option>
-                <option value="sawtooth">Sawtooth</option>
-                <option value="triangle">Triangle</option>
-              </select>
-              <h4>Volume:</h4>
-              <div class="slidecontainer">
-                <input type="range" min="0" max="100" ng-model="component.componentSettings.volume">
+              <div class="editComponent" ng-if="component.type == 'synth'">
+                <h2 class="componentName">{{component.componentName}}</h2>
+                <h4>Oscillator 1:</h4>
+                <select ng-model="component.componentSettings.osc">
+                  <option value="sine">Sine</option>
+                  <option value="square">Square</option>
+                  <option value="sawtooth">Sawtooth</option>
+                  <option value="triangle">Triangle</option>
+                </select>
+                <h4>Oscillator 2:</h4>
+                <select ng-model="component.componentSettings.osc2">
+                  <option value="sine">Sine</option>
+                  <option value="square">Square</option>
+                  <option value="sawtooth">Sawtooth</option>
+                  <option value="triangle">Triangle</option>
+                </select>
+                <h4>Volume:</h4>
+                <div class="slidecontainer">
+                  <input type="range" min="0" max="100" ng-model="component.componentSettings.volume">
+                </div>
+                <button ng-click="vm.saveComponent(component)">SAVE</button>
               </div>
-              <button ng-click="vm.saveComponent(component)">SAVE</button>
-            </div>
             </div>
             <div ng-show="vm.isViewingType == 0">
               <h2 class="componentName">{{component.componentName}}</h2>
